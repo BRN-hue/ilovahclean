@@ -22,42 +22,42 @@ const App = () => {
     {
       title: "End of Lease Cleaning",
       description: "Complete bond cleaning to ensure your deposit return",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-amber-400 to-orange-500",
       features: ["Full property cleaning", "Bond guarantee", "Professional equipment"]
     },
     {
       title: "Regular House Cleaning",
       description: "Weekly, fortnightly, or monthly home maintenance",
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500&h=300&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-yellow-400 to-amber-500",
       features: ["Flexible scheduling", "Consistent quality", "Eco-friendly products"]
     },
     {
       title: "Carpet Cleaning",
       description: "Deep steam cleaning for fresh, spotless carpets",
-      image: "https://images.unsplash.com/photo-1609132718484-cc90df3417f4?w=500&h=300&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1609132718484-cc90df3417f4?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-amber-500 to-yellow-600",
       features: ["Steam cleaning", "Stain removal", "Fast drying"]
     },
     {
       title: "Window Cleaning",
       description: "Crystal clear windows inside and out",
-      image: "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=500&h=300&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-orange-400 to-amber-500",
       features: ["Interior & exterior", "Streak-free finish", "Screen cleaning"]
     },
     {
       title: "Office Cleaning",
       description: "Professional commercial cleaning services",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=500&h=300&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-amber-600 to-orange-600",
       features: ["After hours service", "Sanitization", "Waste management"]
     },
     {
       title: "Pest Control",
       description: "Safe and effective pest management solutions",
-      image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=500&h=300&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-yellow-500 to-amber-600",
       features: ["Eco-friendly methods", "Follow-up service", "Prevention advice"]
     }
@@ -70,7 +70,7 @@ const App = () => {
       text: "I can't get enough of their window cleaning service! The professional service made a huge difference in the ambiance of my home.",
       service: "Window Cleaning",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
     },
     {
       name: "Michael Lee",
@@ -78,7 +78,7 @@ const App = () => {
       text: "The carpet cleaning service exceeded my expectations. My carpets look brand new, and the fresh scent lingers for days.",
       service: "Carpet Cleaning",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
     },
     {
       name: "Emily White",
@@ -86,7 +86,7 @@ const App = () => {
       text: "I'm impressed by the effectiveness of their pest control service. A pest-free home has made a huge difference in our daily lives.",
       service: "Pest Control",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
     },
     {
       name: "Daniel Brown",
@@ -94,7 +94,7 @@ const App = () => {
       text: "The end of lease cleaning service was thorough and efficient. It made the moving process much smoother.",
       service: "End of Lease",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
     }
   ]
 
@@ -104,7 +104,7 @@ const App = () => {
       <div 
         className="fixed inset-0 z-0 opacity-20"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1920&h=1080&fit=crop)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop&auto=format&q=60)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed'
@@ -296,6 +296,7 @@ const App = () => {
                     src={service.image} 
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
                   />
                   {/* Dark overlay for better text readability */}
                   <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
@@ -342,14 +343,13 @@ const App = () => {
         </div>
       </section>
 
-      {/* How It Works with Images */}
-     {/* How It Works Section */}
+      {/* How It Works Section */}
       <section className="py-20 relative overflow-hidden">
         {/* Background Image with Overlay */}
         <div 
           className="absolute inset-0 bg-gray-800"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1920&h=600&fit=crop&crop=center)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1200&h=600&fit=crop&crop=center&auto=format&q=60)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
@@ -456,9 +456,10 @@ const App = () => {
               <div className="grid md:grid-cols-2">
                 <div className="relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&h=400&fit=crop&crop=center" 
+                    src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&h=400&fit=crop&crop=center&auto=format&q=75" 
                     alt="Dirty carpet before cleaning"
                     className="w-full h-80 object-cover"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-red-500/20"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -471,9 +472,10 @@ const App = () => {
                 
                 <div className="relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop&crop=center" 
+                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop&crop=center&auto=format&q=75" 
                     alt="Clean carpet after professional cleaning"
                     className="w-full h-80 object-cover"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-green-500/20"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
@@ -534,6 +536,7 @@ const App = () => {
                           src={testimonial.avatar} 
                           alt={testimonial.name}
                           className="w-12 h-12 rounded-full object-cover shadow-lg"
+                          loading="lazy"
                         />
                         <div className="text-left">
                           <h4 className="font-bold text-gray-800 text-base">{testimonial.name}</h4>
@@ -570,7 +573,7 @@ const App = () => {
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1920&h=600&fit=crop&crop=center)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1200&h=600&fit=crop&crop=center&auto=format&q=60)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
@@ -635,7 +638,7 @@ const App = () => {
             <div>
               <h4 className="text-lg font-semibold mb-4 text-amber-400">Contact Info</h4>
               <ul className="space-y-3 text-gray-300">
-                <li className="flex items-center"><span className="mr-2">📍</span>Toowoomba, QLD</li>
+                <li className="flex items-center"><span className="mr-2">📍</span>Australia</li>
                 <li className="flex items-center"><span className="mr-2">📞</span>1300 ILOVAH</li>
                 <li className="flex items-center"><span className="mr-2">✉️</span>info@ilovah.com.au</li>
                 <li className="flex items-center"><span className="mr-2">🌐</span>www.ilovah.com.au</li>
