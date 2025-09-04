@@ -1,6 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import logo from './assets/logo.png'
 
+const AnimatedNumber = ({ value, duration = 2000, suffix = "", delay = 0 }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const end = parseFloat(value.toString().replace(/[^0-9.]/g, ""));
+      const startTime = performance.now();
+
+      const step = (currentTime) => {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const currentCount = Math.floor(progress * end);
+        setCount(currentCount);
+
+        if (progress < 1) requestAnimationFrame(step);
+        else setCount(end);
+      };
+
+      requestAnimationFrame(step);
+    }, delay);
+
+    return () => clearTimeout(timeout);
+  }, [value, duration, delay]);
+
+  return <span>{count.toLocaleString()}{suffix}</span>;
+};
+
+
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
@@ -209,20 +236,24 @@ const App = () => {
       </nav>
 
       {/* Enhanced Hero Section with Background Image */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
+      {/* Enhanced Hero Section */}
+      <section className="relative pt-24 pb-16 overflow-hidden sm:pt-32 sm:pb-20">
         <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-white/50"></div>
 
-        <div className="container mx-auto px-6 relative">
+        <div className="container mx-auto px-4 sm:px-6 relative">
           <div className="max-w-5xl mx-auto text-center">
+
             {/* Professional Badge */}
-            <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-amber-200 rounded-full px-6 py-2 mb-8 shadow-sm">
+            <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-amber-200 rounded-full px-4 py-2 mb-6 sm:px-6 sm:py-2 shadow-sm">
               <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium text-gray-700">Professional • Reliable • Trusted Since 2020</span>
+              <span className="text-xs sm:text-sm font-medium text-gray-700">
+                Professional • Reliable • Trusted Since 2020
+              </span>
               <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold leading-snug sm:leading-tight mb-4 sm:mb-6">
               <span className="text-gray-800">Spotless Solutions,</span>
               <br />
               <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-500 bg-clip-text text-transparent">
@@ -231,43 +262,63 @@ const App = () => {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-base sm:text-xl md:text-2xl text-gray-700 mb-6 sm:mb-8 leading-relaxed max-w-3xl sm:max-w-4xl mx-auto">
               Delivering comprehensive home cleaning services tailored for you and your family—
               <span className="text-amber-700 font-semibold"> always reliable, always smiling.</span>
             </p>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-              <button className="group px-10 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            {/* Location */}
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 text-gray-700 text-xs sm:text-sm md:text-base">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
+              </svg>
+              <span className="truncate">123 Clean Street, Manila, Philippines</span>
+            </div>
+
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-16">
+              <button className="group px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                 Get Free Quote Today
-                <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
+                <span className="ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
 
               <a href="tel:0478711829">
-                <button className="px-10 py-4 bg-white border-2 border-amber-300 text-amber-700 rounded-xl font-semibold text-lg hover:bg-amber-50 hover:border-amber-400 transition-all duration-300 shadow-md hover:shadow-lg">
+                <button className="px-8 sm:px-10 py-3 sm:py-4 bg-white border-2 border-amber-300 text-amber-700 rounded-xl font-semibold text-base sm:text-lg hover:bg-amber-50 hover:border-amber-400 transition-all duration-300 shadow-md hover:shadow-lg">
                   Call (04) 7871 1829
                 </button>
               </a>
             </div>
 
             {/* Trust Indicators */}
-            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-amber-600 mb-1">1000+</div>
+            <div className="flex flex-wrap justify-center gap-6 sm:gap-8 max-w-2xl mx-auto">
+              <div className="flex-1 text-center min-w-[80px]">
+                <div className="text-2xl sm:text-3xl font-bold text-amber-600 mb-1">
+                  <AnimatedNumber value={1000} suffix="+" delay={2000} duration={5000} />
+                </div>
                 <div className="text-sm text-gray-600">Satisfied Customers</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-amber-600 mb-1">99.9%</div>
+              <div className="flex-1 text-center min-w-[80px]">
+                <div className="text-2xl sm:text-3xl font-bold text-amber-600 mb-1">
+                  <AnimatedNumber value={99.9} suffix="%" delay={2000} duration={4000} />
+                </div>
                 <div className="text-sm text-gray-600">Customer Satisfaction</div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-amber-600 mb-1">5⭐</div>
+              <div className="flex-1 text-center min-w-[80px]">
+                <div className="text-2xl sm:text-3xl font-bold text-amber-600 mb-1">
+                  <AnimatedNumber value={5} suffix="/5⭐" delay={2000} duration={3000} />
+                </div>
                 <div className="text-sm text-gray-600">Average Rating</div>
               </div>
             </div>
+
+
+
           </div>
         </div>
       </section>
+
+
 
       {/* Enhanced Services Section with Real Images */}
       <section id="services" className="py-20 bg-white/60 backdrop-blur-sm">
