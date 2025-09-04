@@ -243,9 +243,11 @@ const App = () => {
                 <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
 
-              <button className="px-10 py-4 bg-white border-2 border-amber-300 text-amber-700 rounded-xl font-semibold text-lg hover:bg-amber-50 hover:border-amber-400 transition-all duration-300 shadow-md hover:shadow-lg">
-                Call (04) 7871 1829
-              </button>
+              <a href="tel:0478711829">
+                <button className="px-10 py-4 bg-white border-2 border-amber-300 text-amber-700 rounded-xl font-semibold text-lg hover:bg-amber-50 hover:border-amber-400 transition-all duration-300 shadow-md hover:shadow-lg">
+                  Call (04) 7871 1829
+                </button>
+              </a>
             </div>
 
             {/* Trust Indicators */}
@@ -270,6 +272,7 @@ const App = () => {
       {/* Enhanced Services Section with Real Images */}
       <section id="services" className="py-20 bg-white/60 backdrop-blur-sm">
         <div className="container mx-auto px-6">
+          {/* Section Header */}
           <div className="text-center mb-16">
             <div className="inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               Our Services
@@ -284,13 +287,14 @@ const App = () => {
             </p>
           </div>
 
+          {/* Services Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group relative h-[600px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-amber-100 hover:border-amber-200 transition-all duration-500 hover:transform hover:-translate-y-2"
+                className="group relative h-[600px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-amber-100 hover:border-amber-200 transition-all duration-500 hover:-translate-y-2"
               >
-                {/* Full Background Image */}
+                {/* Background Image */}
                 <div className="absolute inset-0">
                   <img
                     src={service.image}
@@ -298,44 +302,49 @@ const App = () => {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
                   />
-                  {/* Dark overlay for better text readability */}
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all duration-300"></div>
-                  {/* Gradient overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}></div>
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-all duration-300"></div>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-25 group-hover:opacity-35 transition-opacity duration-300`}
+                  ></div>
                 </div>
 
-                {/* Content overlay */}
+                {/* Content */}
                 <div className="relative z-10 p-8 h-full flex flex-col justify-between">
-                  {/* Top badge */}
-                  <div className="flex justify-end">
-                    <div className={`inline-f lex items-center px-3 py-1 rounded-full bg-gradient-to-r ${service.gradient} text-white text-xs font-semibold shadow-lg`}>
+                  {/* Badge pinned exactly to edge, slightly bigger */}
+                  <div className="absolute top-0 right-0">
+                    <span
+                      className={`px-4 py-2 bg-gradient-to-r ${service.gradient} text-white text-sm font-bold shadow-md rounded-bl-lg`}
+                    >
                       Professional Service
-                    </div>
+                    </span>
                   </div>
 
-                  {/* Main content - bottom positioned */}
-                  <div className="text-white">
+                  {/* Main Text */}
+                  <div className="text-white mt-auto">
                     <h3 className="text-3xl font-bold mb-3 drop-shadow-lg">
                       {service.title}
                     </h3>
-
                     <p className="text-white/90 mb-6 leading-relaxed drop-shadow-md">
                       {service.description}
                     </p>
 
                     <ul className="space-y-3 mb-6">
                       {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-white/95">
+                        <li
+                          key={idx}
+                          className="flex items-center text-white/95"
+                        >
                           <div className="w-2 h-2 rounded-full bg-white mr-3 flex-shrink-0 shadow-sm"></div>
                           <span className="text-sm drop-shadow-sm">{feature}</span>
                         </li>
                       ))}
                     </ul>
 
+                    {/* Button */}
                     <button className="w-full py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold hover:bg-white/30 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
                       Book Now
                     </button>
-
                   </div>
                 </div>
               </div>
@@ -343,6 +352,7 @@ const App = () => {
           </div>
         </div>
       </section>
+
 
       {/* How It Works Section */}
       <section className="py-20 relative overflow-hidden">
@@ -595,9 +605,12 @@ const App = () => {
               Get Free Quote Now
             </button>
 
-            <button className="px-12 py-4 border-2 border-white text-white rounded-xl font-bold text-lg hover:bg-white hover:text-amber-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-              Call (04) 7871 1829
-            </button>
+            <a href="tel:0478711829">
+              <button className="px-12 py-4 border-2 border-white text-white rounded-xl font-bold text-lg hover:bg-white hover:text-amber-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                Call (04) 7871 1829
+              </button>
+            </a>
+
           </div>
         </div>
       </section>
@@ -609,10 +622,10 @@ const App = () => {
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
                 <img
-  src={logo}
-  alt="Ilovah Cleaning Logo"
-  className="w-12 h-12 object-contain rounded-lg"
-/>
+                  src={logo}
+                  alt="Ilovah Cleaning Logo"
+                  className="w-12 h-12 object-contain rounded-lg"
+                />
 
                 <div>
                   <h3 className="text-2xl font-bold">Ilovah Cleaning</h3>
