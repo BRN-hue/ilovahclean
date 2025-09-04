@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23f59e0b'/><rect x='10' y='10' width='80' height='80' fill='%23ffffff' rx='8'/><text x='50' y='65' text-anchor='middle' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='%23f59e0b'>I</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ilovah Cleaning Service - Professional Cleaning Solutions</title>
+
+    <style>
+      /* Welcome screen */
+      .welcome-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.8s ease-out;
+      }
+      .welcome-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #root {
+        opacity: 0;
+        transition: opacity 0.8s ease-in;
+      }
+      #root.loaded {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-amber-700 drop-shadow-md">
+          Spotless Solutions
+        </h1>
+        <p class="mt-4 text-lg md:text-xl text-amber-600 font-medium">
+          Lovingly Delivered by Ilovah Cleaning Service
+        </p>
+      </div>
+    </div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+      window.addEventListener("load", function () {
+        const welcomeScreen = document.getElementById("welcomeScreen");
+        const root = document.getElementById("root");
+
+        setTimeout(() => {
+          welcomeScreen.classList.add("fade-out");
+          root.classList.add("loaded");
+
+          setTimeout(() => {
+            welcomeScreen.style.display = "none";
+          }, 500);
+        }, 1500); // stays visible for ~1.5s
+      });
+    </script>
+  </body>
+</html>
