@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import logo from './assets/logo.png'
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -36,7 +37,7 @@ const App = () => {
     {
       title: "Carpet Cleaning",
       description: "Deep steam cleaning for fresh, spotless carpets",
-      image: "https://images.unsplash.com/photo-1609132718484-cc90df3417f4?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
+      image: "https://source.unsplash.com/400x250/?carpet-cleaning",
       gradient: "from-amber-500 to-yellow-600",
       features: ["Steam cleaning", "Stain removal", "Fast drying"]
     },
@@ -57,7 +58,7 @@ const App = () => {
     {
       title: "Pest Control",
       description: "Safe and effective pest management solutions",
-      image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
+      image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-yellow-500 to-amber-600",
       features: ["Eco-friendly methods", "Follow-up service", "Prevention advice"]
     }
@@ -101,7 +102,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 text-gray-800 overflow-x-hidden">
       {/* Hero Background Image */}
-      <div 
+      <div
         className="fixed inset-0 z-0 opacity-20"
         style={{
           backgroundImage: 'url(https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&h=800&fit=crop&auto=format&q=60)',
@@ -120,9 +121,8 @@ const App = () => {
       </div>
 
       {/* Professional Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        scrollY > 50 ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-amber-200/50' : 'bg-white/80 backdrop-blur-md'
-      }`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-amber-200/50' : 'bg-white/80 backdrop-blur-md'
+        }`}>
         <div className="container mx-auto px-6">
           {/* Top bar with contact info */}
           <div className="hidden md:flex justify-between items-center py-2 text-sm text-gray-600 border-b border-amber-100">
@@ -141,11 +141,11 @@ const App = () => {
             {/* Professional Logo */}
             <div className="flex items-center space-x-4 group">
               <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl p-3 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                  <div className="w-full h-full bg-white rounded-lg flex items-center justify-center">
-                    <span className="text-amber-600 font-bold text-xl">I</span>
-                  </div>
-                </div>
+                <img
+                  src={logo}
+                  alt="Ilovah Cleaning Logo"
+                  className="w-14 h-14 object-contain rounded-lg transition-shadow duration-300"
+                />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-800">
@@ -156,7 +156,7 @@ const App = () => {
                 <p className="text-sm text-gray-500 -mt-1">Professional Cleaning Services</p>
               </div>
             </div>
-            
+
             {/* Clean Menu */}
             <div className="hidden md:flex items-center space-x-8">
               {['Services', 'About', 'Reviews', 'Contact'].map((item) => (
@@ -175,7 +175,7 @@ const App = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button 
+            <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden text-gray-700 hover:text-amber-600 transition-colors p-2"
             >
@@ -211,16 +211,16 @@ const App = () => {
       {/* Enhanced Hero Section with Background Image */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-white/70 to-white/50"></div>
-        
+
         <div className="container mx-auto px-6 relative">
           <div className="max-w-5xl mx-auto text-center">
             {/* Professional Badge */}
             <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-amber-200 rounded-full px-6 py-2 mb-8 shadow-sm">
               <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-gray-700">Professional • Reliable • Trusted Since 2020</span>
-              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             </div>
-            
+
             {/* Main Heading */}
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8">
               <span className="text-gray-800">Spotless Solutions,</span>
@@ -229,20 +229,20 @@ const App = () => {
                 Lovingly Delivered
               </span>
             </h1>
-            
+
             {/* Subtitle */}
             <p className="text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed max-w-4xl mx-auto">
               Delivering comprehensive home cleaning services tailored for you and your family—
               <span className="text-amber-700 font-semibold"> always reliable, always smiling.</span>
             </p>
-            
+
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
               <button className="group px-10 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                 Get Free Quote Today
                 <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
-              
+
               <button className="px-10 py-4 bg-white border-2 border-amber-300 text-amber-700 rounded-xl font-semibold text-lg hover:bg-amber-50 hover:border-amber-400 transition-all duration-300 shadow-md hover:shadow-lg">
                 Call (04) 7871 1829
               </button>
@@ -274,11 +274,11 @@ const App = () => {
             <div className="inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               Our Services
             </div>
-            
+
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
               Comprehensive Cleaning Solutions
             </h2>
-            
+
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               From regular maintenance to specialized deep cleans, we offer professional services to keep your space pristine
             </p>
@@ -286,14 +286,14 @@ const App = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div 
-                key={index} 
-                className="group relative h-96 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-amber-100 hover:border-amber-200 transition-all duration-500 hover:transform hover:-translate-y-2"
+              <div
+                key={index}
+                className="group relative h-[600px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-amber-100 hover:border-amber-200 transition-all duration-500 hover:transform hover:-translate-y-2"
               >
                 {/* Full Background Image */}
                 <div className="absolute inset-0">
-                  <img 
-                    src={service.image} 
+                  <img
+                    src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
@@ -303,26 +303,26 @@ const App = () => {
                   {/* Gradient overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}></div>
                 </div>
-                
+
                 {/* Content overlay */}
                 <div className="relative z-10 p-8 h-full flex flex-col justify-between">
                   {/* Top badge */}
                   <div className="flex justify-end">
-                    <div className={`inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r ${service.gradient} text-white text-xs font-semibold shadow-lg`}>
+                    <div className={`inline-f lex items-center px-3 py-1 rounded-full bg-gradient-to-r ${service.gradient} text-white text-xs font-semibold shadow-lg`}>
                       Professional Service
                     </div>
                   </div>
-                  
+
                   {/* Main content - bottom positioned */}
                   <div className="text-white">
                     <h3 className="text-3xl font-bold mb-3 drop-shadow-lg">
                       {service.title}
                     </h3>
-                    
+
                     <p className="text-white/90 mb-6 leading-relaxed drop-shadow-md">
                       {service.description}
                     </p>
-                    
+
                     <ul className="space-y-3 mb-6">
                       {service.features.map((feature, idx) => (
                         <li key={idx} className="flex items-center text-white/95">
@@ -331,10 +331,11 @@ const App = () => {
                         </li>
                       ))}
                     </ul>
-                    
+
                     <button className="w-full py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold hover:bg-white/30 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                      Learn More
+                      Book Now
                     </button>
+
                   </div>
                 </div>
               </div>
@@ -346,7 +347,7 @@ const App = () => {
       {/* How It Works Section */}
       <section className="py-20 relative overflow-hidden">
         {/* Background Image with Overlay */}
-        <div 
+        <div
           className="absolute inset-0 bg-gray-800"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=1200&h=600&fit=crop&crop=center&auto=format&q=60)',
@@ -355,7 +356,7 @@ const App = () => {
           }}
         ></div>
         <div className="absolute inset-0 bg-gray-900/70"></div>
-        
+
         <div className="container mx-auto px-6 relative">
           {/* Title */}
           <div className="text-center mb-16">
@@ -455,8 +456,8 @@ const App = () => {
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-amber-100">
               <div className="grid md:grid-cols-2">
                 <div className="relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&h=400&fit=crop&crop=center&auto=format&q=75" 
+                  <img
+                    src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&h=400&fit=crop&crop=center&auto=format&q=75"
                     alt="Dirty carpet before cleaning"
                     className="w-full h-80 object-cover"
                     loading="lazy"
@@ -469,10 +470,10 @@ const App = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop&crop=center&auto=format&q=75" 
+                  <img
+                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop&crop=center&auto=format&q=75"
                     alt="Clean carpet after professional cleaning"
                     className="w-full h-80 object-cover"
                     loading="lazy"
@@ -509,7 +510,7 @@ const App = () => {
           <div className="max-w-4xl mx-auto">
             <div className="relative overflow-hidden">
               {/* Testimonials Container */}
-              <div 
+              <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{
                   transform: `translateX(-${currentTestimonial * 100}%)`
@@ -526,14 +527,14 @@ const App = () => {
                           <span key={i} className="text-amber-500 text-xl mx-1">⭐</span>
                         ))}
                       </div>
-                      
+
                       <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed italic font-light flex-1 flex items-center px-4">
                         "{testimonial.text}"
                       </blockquote>
-                      
+
                       <div className="flex items-center justify-center space-x-4 mt-4">
-                        <img 
-                          src={testimonial.avatar} 
+                        <img
+                          src={testimonial.avatar}
                           alt={testimonial.name}
                           className="w-12 h-12 rounded-full object-cover shadow-lg"
                           loading="lazy"
@@ -548,18 +549,17 @@ const App = () => {
                   </div>
                 ))}
               </div>
-              
+
               {/* Navigation Dots */}
               <div className="flex justify-center space-x-3 mt-12">
                 {testimonials.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentTestimonial 
-                        ? 'bg-amber-500 w-8' 
-                        : 'bg-amber-200 hover:bg-amber-300'
-                    }`}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentTestimonial
+                      ? 'bg-amber-500 w-8'
+                      : 'bg-amber-200 hover:bg-amber-300'
+                      }`}
                   />
                 ))}
               </div>
@@ -570,7 +570,7 @@ const App = () => {
 
       {/* Enhanced CTA with Background Image */}
       <section id="contact" className="py-20 relative overflow-hidden">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1200&h=600&fit=crop&crop=center&auto=format&q=60)',
@@ -579,22 +579,22 @@ const App = () => {
           }}
         ></div>
         <div className="absolute inset-0 bg-gradient-to-r from-amber-500/90 to-orange-500/90"></div>
-        
+
         <div className="container mx-auto px-6 text-center relative">
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">
             Ready for a Spotless Home?
           </h2>
-          
+
           <p className="text-xl md:text-2xl text-amber-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Experience the difference professional cleaning makes. 
+            Experience the difference professional cleaning makes.
             <span className="font-semibold"> Get your free quote today.</span>
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <button className="px-12 py-4 bg-white text-amber-600 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
               Get Free Quote Now
             </button>
-            
+
             <button className="px-12 py-4 border-2 border-white text-white rounded-xl font-bold text-lg hover:bg-white hover:text-amber-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
               Call (04) 7871 1829
             </button>
@@ -608,11 +608,12 @@ const App = () => {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl p-3">
-                  <div className="w-full h-full bg-white rounded-lg flex items-center justify-center">
-                    <span className="text-amber-600 font-bold">I</span>
-                  </div>
-                </div>
+                <img
+  src={logo}
+  alt="Ilovah Cleaning Logo"
+  className="w-12 h-12 object-contain rounded-lg"
+/>
+
                 <div>
                   <h3 className="text-2xl font-bold">Ilovah Cleaning</h3>
                   <p className="text-gray-400 text-sm">Professional Cleaning Services</p>
@@ -622,7 +623,7 @@ const App = () => {
                 Spotless Solutions, Lovingly Delivered. Professional cleaning services for homes and businesses across Toowoomba and surrounding areas.
               </p>
             </div>
-            
+
             <div>
               <h4 className="text-lg font-semibold mb-4 text-amber-400">Our Services</h4>
               <ul className="space-y-2 text-gray-300">
@@ -634,7 +635,7 @@ const App = () => {
                 <li>Pest Control</li>
               </ul>
             </div>
-            
+
             <div>
               <h4 className="text-lg font-semibold mb-4 text-amber-400">Contact Info</h4>
               <ul className="space-y-3 text-gray-300">
@@ -645,7 +646,7 @@ const App = () => {
               </ul>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-800 pt-8 text-center">
             <p className="text-gray-400">© 2024 Ilovah Cleaning Services. All rights reserved. | ABN: 12 345 678 901</p>
           </div>
