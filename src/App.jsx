@@ -298,42 +298,42 @@ const App = () => {
       title: "End of Lease Cleaning",
       description: "Bond Back Guarantee: We promise to promptly address and rectify any cleaning issues your property manager identifies during the final inspection, ensuring your bond is secured.",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
-      gradient: "from-amber-400 to-orange-500",
+      gradient: "from-red-500 to-red-600",
       features: ["Bond back guarantee", "Property manager inspections", "Professional equipment"]
     },
     {
       title: "Pressure Washing",
       description: "Professional pressure washing for buildings, walkways, and common areas. Ideal for property managers, clinics, and commercial spaces.",
       image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
-      gradient: "from-yellow-400 to-amber-500",
+      gradient: "from-red-500 to-red-600",
       features: ["Commercial spaces", "Property managers", "Professional grade equipment"]
     },
     {
       title: "Pest Management Service",
       description: "Service coming soon",
       image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
-      gradient: "from-amber-500 to-yellow-600",
+      gradient: "from-red-500 to-red-600",
       features: ["Coming soon", "Professional service", "Comprehensive solutions"]
     },
     {
       title: "Carpet Cleaning",
       description: "Deep-cleaning that removes dirt, stains, and allergens using professional equipment and eco-friendly solutions. Ideal for homes, offices, and rentals.",
       image: "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
-      gradient: "from-orange-400 to-amber-500",
+      gradient: "from-red-500 to-red-600",
       features: ["Deep cleaning", "Eco-friendly solutions", "Professional equipment"]
     },
     {
       title: "Window Cleaning",
       description: "Crystal-clear windows inside and out. We remove dirt, spots, and streaks for a spotless finish that brightens your home or business.",
       image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
-      gradient: "from-amber-600 to-orange-600",
+      gradient: "from-red-500 to-red-600",
       features: ["Interior & exterior", "Spotless finish", "Home & business"]
     },
     {
       title: "Gutter Cleaning",
       description: "Protect your property with precision. Our discreet, thorough gutter cleaning ensures seamless drainage and lasting curb appeal.",
       image: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
-      gradient: "from-yellow-500 to-amber-600",
+      gradient: "from-red-500 to-red-600",
       features: ["Property protection", "Seamless drainage", "Curb appeal enhancement"]
     }
   ]
@@ -374,7 +374,7 @@ const App = () => {
   ]
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 text-gray-800 overflow-x-hidden" role="main">
+    <main className="min-h-screen bg-red-50 text-gray-800 overflow-x-hidden" role="main">
       {/* Hero Background Image */}
       <div
         className="fixed inset-0 z-0 opacity-20"
@@ -389,26 +389,26 @@ const App = () => {
       {/* Subtle Background Pattern */}
       <div className="fixed inset-0 z-0 opacity-30">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(245,158,11,0.1) 0%, transparent 50%),
-                           radial-gradient(circle at 75% 75%, rgba(249,115,22,0.1) 0%, transparent 50%)`
+          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(239,68,68,0.1) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(59,130,246,0.1) 0%, transparent 50%)`
         }}></div>
       </div>
 
       {/* Professional Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-amber-200/50' : 'bg-white/80 backdrop-blur-md'
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrollY > 50 ? 'bg-white/95 backdrop-blur-xl shadow-xl border-b border-red-200/50' : 'bg-white/80 backdrop-blur-md'
         }`}>
         <div className="container mx-auto px-6">
           {/* Top bar with contact info */}
-          <div className="hidden md:flex justify-between items-center py-2 text-sm text-gray-600 border-b border-amber-100">
+          <div className="hidden md:flex justify-between items-center py-2 text-sm text-gray-600 border-b border-red-100">
             <div className="flex items-center space-x-6">
               <span className="flex items-center">
-                <svg className="w-4 h-4 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
-                Based in 4 Kelfield Street AL, NORTH TOOWOOMBA QLD 4350
+                4 Kelfield Street, North Toowoomba QLD, Australia
               </span>
               <span className="flex items-center">
-                <svg className="w-4 h-4 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                 </svg>
                 Mon-Sun: 7AM-7PM
@@ -416,13 +416,13 @@ const App = () => {
             </div>
             <div className="flex items-center space-x-6">
               <span className="flex items-center">
-                <svg className="w-4 h-4 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
                 (04) 7871 1829
               </span>
               <span className="flex items-center">
-                <svg className="w-4 h-4 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
@@ -444,7 +444,7 @@ const App = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-800">
-                  <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                  <span className="text-red-600">
                     Ilovah Cleaning
                   </span>
                 </h1>
@@ -458,15 +458,15 @@ const App = () => {
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="text-gray-700 hover:text-amber-600 transition-colors duration-300 font-medium relative group py-2"
+                  className="text-gray-700 hover:text-red-600 transition-colors duration-300 font-medium relative group py-2"
                 >
                   {item}
-                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 group-hover:w-full transition-all duration-300"></div>
+                  <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 group-hover:w-full transition-all duration-300"></div>
                 </a>
               ))}
               <button
                 onClick={openQuoteModal}
-                className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-300 shadow-md hover:shadow-lg"
+                className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600 transition-all duration-300 shadow-md hover:shadow-lg"
               >
                 Get Quote
               </button>
@@ -475,7 +475,7 @@ const App = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-gray-700 hover:text-amber-600 transition-colors p-2"
+              className="md:hidden text-gray-700 hover:text-red-600 transition-colors p-2"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -485,13 +485,13 @@ const App = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden pb-6 border-t border-amber-100">
+            <div className="md:hidden pb-6 border-t border-red-100">
               <div className="flex flex-col space-y-4 pt-4">
                 {['Services', 'About', 'Reviews', 'Contact'].map((item) => (
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className="text-gray-700 hover:text-amber-600 transition-colors py-2"
+                    className="text-gray-700 hover:text-red-600 transition-colors py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item}
@@ -499,7 +499,7 @@ const App = () => {
                 ))}
                 <button
                   onClick={openQuoteModal}
-                  className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-2 rounded-lg font-semibold w-fit"
+                  className="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600 transition-all duration-300 w-fit"
                 >
                   Get Quote
                 </button>
@@ -517,19 +517,19 @@ const App = () => {
           <div className="max-w-5xl mx-auto text-center">
 
             {/* Professional Badge */}
-            <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-amber-200 rounded-full px-4 py-2 mb-6 sm:px-6 sm:py-2 shadow-sm">
-              <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse"></div>
+            <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-red-200 rounded-full px-4 py-2 mb-6 sm:px-6 sm:py-2 shadow-sm">
+              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
               <span className="text-xs sm:text-sm font-medium text-gray-700">
                 Professional • Reliable • Trusted Since 2020
               </span>
-              <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             </div>
 
             {/* Main Heading */}
             <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold leading-snug sm:leading-tight mb-4 sm:mb-6">
               <span className="text-gray-800">Spotless Solutions,</span>
               <br />
-              <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-amber-500 bg-clip-text text-transparent">
+              <span className="text-red-600">
                 Lovingly Delivered
               </span>
             </h1>
@@ -537,15 +537,15 @@ const App = () => {
             {/* Subtitle */}
             <p className="text-base sm:text-xl md:text-2xl text-gray-700 mb-6 sm:mb-8 leading-relaxed max-w-3xl sm:max-w-4xl mx-auto">
               Delivering comprehensive home cleaning services tailored for you and your family—
-              <span className="text-amber-700 font-semibold"> always reliable, always smiling.</span>
+              <span className="text-red-700 font-semibold"> always reliable, always smiling.</span>
             </p>
 
             {/* Location */}
             <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 text-gray-700 text-xs sm:text-sm md:text-base">
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
               </svg>
-              <span className="truncate">Based in 4 Kelfield Street AL, NORTH TOOWOOMBA QLD 4350</span>
+              <span className="truncate">4 Kelfield Street, North Toowoomba QLD, Australia</span>
             </div>
 
 
@@ -553,14 +553,14 @@ const App = () => {
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mb-12 sm:mb-16">
               <button
                 onClick={openQuoteModal}
-                className="group px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                className="group px-8 sm:px-10 py-3 sm:py-4 bg-red-500 text-white rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl hover:bg-red-600 transform hover:scale-105 transition-all duration-300"
               >
                 Get Free Quote Today
                 <span className="ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
 
               <a href="tel:0478711829">
-                <button className="px-8 sm:px-10 py-3 sm:py-4 bg-white border-2 border-amber-300 text-amber-700 rounded-xl font-semibold text-base sm:text-lg hover:bg-amber-50 hover:border-amber-400 transition-all duration-300 shadow-md hover:shadow-lg">
+                <button className="px-8 sm:px-10 py-3 sm:py-4 bg-white border-2 border-red-300 text-red-700 rounded-xl font-semibold text-base sm:text-lg hover:bg-red-50 hover:border-red-400 transition-all duration-300 shadow-md hover:shadow-lg">
                   Call (04) 7871 1829
                 </button>
               </a>
@@ -569,20 +569,20 @@ const App = () => {
             {/* Trust Indicators */}
             <div className="flex flex-wrap justify-center gap-6 sm:gap-8 max-w-2xl mx-auto">
               <div className="flex-1 text-center min-w-[80px]">
-                <div className="text-2xl sm:text-3xl font-bold text-amber-600 mb-1">
+                <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-1">
                   <AnimatedNumber value={1000} suffix="+" delay={2000} duration={5000} />
                 </div>
                 <div className="text-sm text-gray-600">Satisfied Customers</div>
               </div>
               <div className="flex-1 text-center min-w-[80px]">
-                <div className="text-2xl sm:text-3xl font-bold text-amber-600 mb-1">
+                <div className="text-2xl sm:text-3xl font-bold text-blue-600 mb-1">
                   <AnimatedNumber value={99.9} suffix="%" delay={2000} duration={4000} />
                 </div>
                 <div className="text-sm text-gray-600">Customer Satisfaction</div>
               </div>
               <div className="flex-1 text-center min-w-[80px]">
-                <div className="text-2xl sm:text-3xl font-bold text-amber-600 mb-1">
-                  <AnimatedNumber value={5} suffix="/5⭐" delay={2000} duration={3000} />
+                <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-1">
+                  <span><AnimatedNumber value={5} suffix="/5" delay={2000} duration={3000} /><svg className="w-5 h-5 inline-block ml-1 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg></span>
                 </div>
                 <div className="text-sm text-gray-600">Average Rating</div>
               </div>
@@ -601,7 +601,7 @@ const App = () => {
         <div className="container mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-16 px-3 sm:px-6 lg:px-8">
-            <div className="inline-block bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <div className="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               Our Services
             </div>
 
@@ -619,7 +619,7 @@ const App = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group relative h-[240px] sm:h-[320px] md:h-[380px] lg:h-[420px] overflow-hidden shadow-lg hover:shadow-2xl border border-amber-100 hover:border-amber-200 transition-all duration-500"
+                className="group relative h-[240px] sm:h-[320px] md:h-[380px] lg:h-[420px] overflow-hidden shadow-lg hover:shadow-2xl border border-red-100 hover:border-red-200 transition-all duration-500"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
@@ -780,7 +780,7 @@ const App = () => {
           </div>
 
           <div className="max-w-5xl mx-auto">
-            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-amber-100">
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-red-100">
               <div className="grid md:grid-cols-2">
                 <div className="relative">
                   <img
@@ -848,10 +848,12 @@ const App = () => {
                     role="group"
                     aria-labelledby={`testimonial-${index}-author`}
                   >
-                    <div className="bg-white rounded-3xl shadow-xl p-6 text-center border border-amber-100 h-80 flex flex-col justify-between">
+                    <div className="bg-white rounded-3xl shadow-xl p-6 text-center border border-red-100 h-80 flex flex-col justify-between">
                       <div className="flex justify-center mb-3" role="img" aria-label={`Rating: ${testimonial.rating} out of 5 stars`}>
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <span key={i} className="text-amber-500 text-xl mx-1">⭐</span>
+                          <svg key={i} className="w-5 h-5 text-red-500 mx-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                          </svg>
                         ))}
                       </div>
 
@@ -869,7 +871,7 @@ const App = () => {
                         <div className="text-left">
                           <h4 id={`testimonial-${index}-author`} className="font-bold text-gray-800 text-sm sm:text-base">{testimonial.name}</h4>
                           <p className="text-gray-600 text-xs sm:text-sm">{testimonial.location}</p>
-                          <p className="text-amber-600 font-medium text-xs">{testimonial.service}</p>
+                          <p className="text-red-600 font-medium text-xs">{testimonial.service}</p>
                         </div>
                       </footer>
                     </div>
@@ -884,8 +886,8 @@ const App = () => {
                     key={index}
                     onClick={() => setCurrentTestimonial(index)}
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentTestimonial
-                      ? 'bg-amber-500 w-8'
-                      : 'bg-amber-200 hover:bg-amber-300'
+                      ? 'bg-red-500 w-8'
+                      : 'bg-red-200 hover:bg-red-300'
                       }`}
                     role="tab"
                     aria-selected={index === currentTestimonial}
@@ -908,14 +910,14 @@ const App = () => {
             backgroundPosition: 'center'
           }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-500/90 to-orange-500/90"></div>
+        <div className="absolute inset-0 bg-red-500/90"></div>
 
         <div className="container mx-auto px-6 text-center relative">
           <h2 id="cta-title" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 sm:mb-8">
             Ready for a Spotless Home?
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-amber-100 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-red-100 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed">
             Experience the difference professional cleaning makes.
             <span className="font-semibold"> Get your free quote today.</span>
           </p>
@@ -923,14 +925,14 @@ const App = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center" role="group" aria-label="Contact options">
             <button
               onClick={openQuoteModal}
-              className="px-8 sm:px-12 py-3 sm:py-4 bg-white text-amber-600 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+              className="px-8 sm:px-12 py-3 sm:py-4 bg-white text-red-600 rounded-xl font-bold text-base sm:text-lg shadow-lg hover:shadow-xl hover:bg-red-50 transform hover:scale-105 transition-all duration-300"
               aria-label="Get a free quote for cleaning services"
             >
               Get Free Quote Now
             </button>
 
             <a href="tel:0478711829" aria-label="Call Ilovah Cleaning Services at (04) 7871 1829">
-              <button className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-white text-white rounded-xl font-bold text-base sm:text-lg hover:bg-white hover:text-amber-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-white text-white rounded-xl font-bold text-base sm:text-lg hover:bg-white hover:text-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                 Call (04) 7871 1829
               </button>
             </a>
@@ -995,45 +997,45 @@ const App = () => {
             <div className="space-y-8">
               {/* Services Section */}
               <div className="text-center sm:text-left">
-                <h4 className="text-lg md:text-xl font-semibold mb-4 text-amber-400">Our Services</h4>
+                <h4 className="text-lg md:text-xl font-semibold mb-4 text-red-400">Our Services</h4>
                 <ul className="grid grid-cols-2 gap-2 text-sm md:text-base text-gray-300" role="list">
-                  <li className="hover:text-amber-400 transition-colors duration-300 cursor-pointer">End of Lease Cleaning</li>
-                  <li className="hover:text-amber-400 transition-colors duration-300 cursor-pointer">Pressure Washing</li>
-                  <li className="hover:text-amber-400 transition-colors duration-300 cursor-pointer">Pest Management</li>
-                  <li className="hover:text-amber-400 transition-colors duration-300 cursor-pointer">Carpet Cleaning</li>
-                  <li className="hover:text-amber-400 transition-colors duration-300 cursor-pointer">Window Cleaning</li>
-                  <li className="hover:text-amber-400 transition-colors duration-300 cursor-pointer">Gutter Cleaning</li>
+                  <li className="hover:text-red-400 transition-colors duration-300 cursor-pointer">End of Lease Cleaning</li>
+                  <li className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">Pressure Washing</li>
+                  <li className="hover:text-red-400 transition-colors duration-300 cursor-pointer">Pest Management</li>
+                  <li className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">Carpet Cleaning</li>
+                  <li className="hover:text-red-400 transition-colors duration-300 cursor-pointer">Window Cleaning</li>
+                  <li className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">Gutter Cleaning</li>
                 </ul>
               </div>
 
               {/* Contact Section */}
               <div className="text-center sm:text-left">
-                <h4 className="text-lg md:text-xl font-semibold mb-4 text-amber-400">Contact Info</h4>
+                <h4 className="text-lg md:text-xl font-semibold mb-4 text-blue-400">Contact Info</h4>
                 <address className="space-y-3 text-sm md:text-base text-gray-300 not-italic">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-2">
-                    <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mx-auto sm:mx-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-red-500 flex-shrink-0 mx-auto sm:mx-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
                     </svg>
                     <span className="text-center sm:text-left">4 Kelfield Street AL, NORTH TOOWOOMBA QLD 4350</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clipRule="evenodd" />
                     </svg>
-                    <a href="tel:0478711829" className="hover:text-amber-400 transition-colors duration-300">(04) 7871 1829</a>
+                    <a href="tel:0478711829" className="hover:text-red-400 transition-colors duration-300">(04) 7871 1829</a>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-red-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
                       <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
                     </svg>
-                    <a href="mailto:ilovahcleaning@gmail.com" className="hover:text-amber-400 transition-colors duration-300 break-all">ilovahcleaning@gmail.com</a>
+                    <a href="mailto:ilovahcleaning@gmail.com" className="hover:text-blue-400 transition-colors duration-300 break-all">ilovahcleaning@gmail.com</a>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <svg className="w-5 h-5 text-amber-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zM9.5 8a1 1 0 000 2h5a1 1 0 100-2h-5zm-3 4a1 1 0 011-1h9a1 1 0 110 2h-9a1 1 0 01-1-1zm1 3a1 1 0 100 2h7a1 1 0 100-2h-7z" clipRule="evenodd" />
                     </svg>
-                    <a href="https://www.ilovah.com.au" target="_blank" rel="noopener noreferrer" className="hover:text-amber-400 transition-colors duration-300">www.ilovah.com.au</a>
+                    <a href="https://www.ilovah.com.au" target="_blank" rel="noopener noreferrer" className="hover:text-red-400 transition-colors duration-300">www.ilovah.com.au</a>
                   </div>
                 </address>
               </div>
@@ -1045,9 +1047,9 @@ const App = () => {
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-xs sm:text-sm text-gray-400 text-center md:text-left">© 2024 Ilovah Cleaning Services. All rights reserved. | ABN: 12 345 678 901</p>
               <div className="flex flex-wrap justify-center md:justify-end space-x-4 sm:space-x-6 text-xs sm:text-sm text-gray-400">
-                <a href="#" className="hover:text-amber-400 transition-colors duration-300">Privacy Policy</a>
-                <a href="#" className="hover:text-amber-400 transition-colors duration-300">Terms of Service</a>
-                <a href="#" className="hover:text-amber-400 transition-colors duration-300">Sitemap</a>
+                <a href="#" className="hover:text-red-400 transition-colors duration-300">Privacy Policy</a>
+                <a href="#" className="hover:text-blue-400 transition-colors duration-300">Terms of Service</a>
+                <a href="#" className="hover:text-red-400 transition-colors duration-300">Sitemap</a>
               </div>
             </div>
           </div>
@@ -1069,7 +1071,7 @@ const App = () => {
             {/* Modal panel - optimized height */}
             <div className="relative transform overflow-hidden rounded-xl bg-white shadow-2xl transition-all w-full max-w-4xl max-h-[95vh] flex flex-col">
               {/* Modal Header - refined compact design */}
-              <div className="relative bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 px-4 py-4 sm:px-6 flex-shrink-0">
+              <div className="relative bg-red-500 px-4 py-4 sm:px-6 flex-shrink-0">
                 {/* Decorative background pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute inset-0" style={{
@@ -1086,9 +1088,9 @@ const App = () => {
                         {/* Step circle and content */}
                         <div className="flex flex-col items-center relative z-10">
                           <div className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${currentStep > step
-                              ? 'bg-white text-amber-600' // Completed - white with amber text
+                              ? 'bg-white text-red-600' // Completed - white with red text
                               : currentStep === step
-                                ? 'bg-white text-amber-600' // Current - white with amber text
+                                ? 'bg-white text-red-600' // Current - white with red text
                                 : 'bg-white/20 border-2 border-white/40 text-white/80' // Future - transparent with white text
                             }`}>
                             {currentStep > step ? (
@@ -1096,7 +1098,7 @@ const App = () => {
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                             ) : (
-                              <span className={`text-xs sm:text-sm font-bold ${currentStep >= step ? 'text-amber-600' : 'text-white/80'
+                              <span className={`text-xs sm:text-sm font-bold ${currentStep >= step ? 'text-red-600' : 'text-white/80'
                                 }`}>
                                 {step < 10 ? `0${step}` : step}
                               </span>
@@ -1167,8 +1169,8 @@ const App = () => {
                           key={index}
                           className={`group relative border-2 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:shadow-md ${
                             quoteFormData.service === service.title
-                              ? 'border-amber-500 bg-gradient-to-br from-amber-50 to-orange-50 shadow-md scale-[1.01]'
-                              : 'border-gray-200 hover:border-amber-300'
+                              ? 'border-red-500 bg-red-50 shadow-md scale-[1.01]'
+                              : 'border-gray-200 hover:border-red-300'
                           }`}
                           onClick={() => updateRootFormData('service', service.title)}
                         >
@@ -1176,8 +1178,8 @@ const App = () => {
                           <div className="absolute top-3 right-3">
                             <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                                 quoteFormData.service === service.title
-                                  ? 'border-amber-500 bg-amber-500'
-                                  : 'border-gray-300 group-hover:border-amber-400'
+                                  ? 'border-red-500 bg-red-500'
+                                  : 'border-gray-300 group-hover:border-red-400'
                               }`}>
                               {quoteFormData.service === service.title && (
                                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -1198,7 +1200,7 @@ const App = () => {
                                   e.stopPropagation()
                                   toggleDetails(index)
                                 }}
-                                className="text-amber-600 hover:text-amber-700 text-sm font-medium flex items-center transition-colors"
+                                className="text-red-600 hover:text-red-700 text-sm font-medium flex items-center transition-colors"
                               >
                                 View More
                                 <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1214,7 +1216,7 @@ const App = () => {
                                 <div className="space-y-1 mb-3">
                                   {service.features.slice(0, 2).map((feature, idx) => (
                                     <div key={idx} className="flex items-center text-xs text-gray-700">
-                                      <div className="w-1 h-1 rounded-full bg-amber-500 mr-2 flex-shrink-0"></div>
+                                      <div className="w-1 h-1 rounded-full bg-red-500 mr-2 flex-shrink-0"></div>
                                       <span>{feature}</span>
                                     </div>
                                   ))}
@@ -1225,7 +1227,7 @@ const App = () => {
                                     e.stopPropagation()
                                     toggleDetails(index)
                                   }}
-                                  className="text-amber-600 hover:text-amber-700 text-sm font-medium flex items-center transition-colors"
+                                  className="text-red-600 hover:text-red-700 text-sm font-medium flex items-center transition-colors"
                                 >
                                   View Less
                                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1263,7 +1265,7 @@ const App = () => {
                             type="text"
                             value={quoteFormData.contactInfo.firstName}
                             onChange={(e) => updateFormData('contactInfo', 'firstName', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                             placeholder="Enter your first name"
                           />
                         </div>
@@ -1275,7 +1277,7 @@ const App = () => {
                             type="text"
                             value={quoteFormData.contactInfo.lastName}
                             onChange={(e) => updateFormData('contactInfo', 'lastName', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                             placeholder="Enter your last name"
                           />
                         </div>
@@ -1287,7 +1289,7 @@ const App = () => {
                             type="email"
                             value={quoteFormData.contactInfo.email}
                             onChange={(e) => updateFormData('contactInfo', 'email', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                             placeholder="your.email@example.com"
                           />
                         </div>
@@ -1299,7 +1301,7 @@ const App = () => {
                             type="tel"
                             value={quoteFormData.contactInfo.phone}
                             onChange={(e) => updateFormData('contactInfo', 'phone', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                             placeholder="(04) 1234 5678"
                           />
                         </div>
@@ -1325,8 +1327,8 @@ const App = () => {
                                 className="sr-only"
                               />
                               <div className={`p-3 border-2 rounded-lg cursor-pointer transition-all duration-300 text-center ${quoteFormData.contactInfo.preferredContact === option.value
-                                  ? 'border-amber-500 bg-amber-50 shadow-md'
-                                  : 'border-gray-300 hover:border-amber-300'
+                                  ? 'border-red-500 bg-red-50 shadow-md'
+                                  : 'border-gray-300 hover:border-red-300'
                                 }`}>
                                 <div className="text-lg mb-1">{option.icon}</div>
                                 <div className="text-sm font-medium text-gray-800">{option.label}</div>
@@ -1361,7 +1363,7 @@ const App = () => {
                           <select
                             value={quoteFormData.propertyDetails.propertyType}
                             onChange={(e) => updateFormData('propertyDetails', 'propertyType', e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
                           >
                             <option value="">Select property type</option>
                             <option value="house">House</option>
@@ -1378,7 +1380,7 @@ const App = () => {
                           <select
                             value={quoteFormData.propertyDetails.bedrooms}
                             onChange={(e) => updateFormData('propertyDetails', 'bedrooms', e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
                           >
                             <option value="">Select bedrooms</option>
                             <option value="studio">Studio</option>
@@ -1396,7 +1398,7 @@ const App = () => {
                           <select
                             value={quoteFormData.propertyDetails.bathrooms}
                             onChange={(e) => updateFormData('propertyDetails', 'bathrooms', e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
                           >
                             <option value="">Select bathrooms</option>
                             <option value="1">1 Bathroom</option>
@@ -1423,7 +1425,7 @@ const App = () => {
                                     type="text"
                                     value={quoteFormData.propertyDetails.address}
                                     onChange={(e) => updateFormData('propertyDetails', 'address', e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                                     placeholder="123 Main Street"
                                   />
                                 </div>
@@ -1435,7 +1437,7 @@ const App = () => {
                                     type="text"
                                     value={quoteFormData.propertyDetails.suburb}
                                     onChange={(e) => updateFormData('propertyDetails', 'suburb', e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                                     placeholder="Toowoomba"
                                   />
                                 </div>
@@ -1447,7 +1449,7 @@ const App = () => {
                                     type="text"
                                     value={quoteFormData.propertyDetails.postcode}
                                     onChange={(e) => updateFormData('propertyDetails', 'postcode', e.target.value)}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                                     placeholder="4350"
                                   />
                                 </div>
@@ -1475,7 +1477,7 @@ const App = () => {
                                 {/* Map Overlay Info */}
                                 <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
                                   <div className="flex items-center space-x-2">
-                                    <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
                                       <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
                                     </svg>
                                     <span className="text-xs font-medium text-gray-700">Service Area: Toowoomba & Surrounds</span>
@@ -1500,7 +1502,7 @@ const App = () => {
                             <textarea
                               value={quoteFormData.propertyDetails.specialRequirements}
                               onChange={(e) => updateFormData('propertyDetails', 'specialRequirements', e.target.value)}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800 resize-none"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 resize-none"
                               rows="4"
                               placeholder="Please include any special requirements, access codes, parking instructions, pets, or areas that need extra attention..."
                             />
@@ -1589,15 +1591,15 @@ const App = () => {
                                 className={`p-2 rounded-lg text-sm transition-all duration-200 min-h-[60px] flex flex-col items-center justify-center ${isPast
                                     ? 'text-gray-400 cursor-not-allowed bg-gray-100'
                                     : isSelected
-                                      ? 'bg-amber-500 text-white shadow-md'
-                                      : 'text-gray-700 hover:bg-amber-100 border border-gray-200'
+                                      ? 'bg-red-500 text-white shadow-md'
+                                      : 'text-gray-700 hover:bg-red-100 border border-gray-200'
                                   }`}
                               >
                                 <span className="font-semibold">{day}</span>
                                 {!isPast && (
                                   <div className="text-xs mt-1">
                                     {totalSlots > 0 ? (
-                                      <span className={isSelected ? 'text-amber-100' : 'text-amber-600'}>
+                                      <span className={isSelected ? 'text-red-100' : 'text-red-600'}>
                                         {totalSlots} slots
                                       </span>
                                     ) : (
@@ -1639,7 +1641,7 @@ const App = () => {
                                 {/* Morning Slots */}
                                 <div>
                                   <div className="flex items-center mb-3">
-                                    <svg className="w-5 h-5 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                                     </svg>
                                     <h5 className="font-semibold text-gray-800">Morning Slots</h5>
@@ -1651,8 +1653,8 @@ const App = () => {
                                           key={slot}
                                           onClick={() => updateFormData('scheduling', 'selectedTimeSlot', slot)}
                                           className={`w-full p-3 text-left rounded-lg border-2 transition-all duration-200 ${quoteFormData.scheduling.selectedTimeSlot === slot
-                                              ? 'border-amber-500 bg-amber-50 text-amber-700'
-                                              : 'border-gray-300 hover:border-amber-300 hover:bg-amber-25'
+                                              ? 'border-red-500 bg-red-50 text-red-700'
+                                              : 'border-gray-300 hover:border-red-300 hover:bg-red-25'
                                             }`}
                                         >
                                           <div className="font-medium">{slot}</div>
@@ -1670,7 +1672,7 @@ const App = () => {
                                 {/* Afternoon Slots */}
                                 <div>
                                   <div className="flex items-center mb-3">
-                                    <svg className="w-5 h-5 text-orange-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-5 h-5 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                                     </svg>
                                     <h5 className="font-semibold text-gray-800">Afternoon Slots</h5>
@@ -1682,8 +1684,8 @@ const App = () => {
                                           key={slot}
                                           onClick={() => updateFormData('scheduling', 'selectedTimeSlot', slot)}
                                           className={`w-full p-3 text-left rounded-lg border-2 transition-all duration-200 ${quoteFormData.scheduling.selectedTimeSlot === slot
-                                              ? 'border-amber-500 bg-amber-50 text-amber-700'
-                                              : 'border-gray-300 hover:border-amber-300 hover:bg-amber-25'
+                                              ? 'border-red-500 bg-red-50 text-red-700'
+                                              : 'border-gray-300 hover:border-red-300 hover:bg-red-25'
                                             }`}
                                         >
                                           <div className="font-medium">{slot}</div>
@@ -1712,7 +1714,7 @@ const App = () => {
                         <select
                           value={quoteFormData.scheduling.urgency}
                           onChange={(e) => updateFormData('scheduling', 'urgency', e.target.value)}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
                         >
                           <option value="flexible">Flexible (Within 2 weeks)</option>
                           <option value="soon">Soon (Within 1 week)</option>
@@ -1722,16 +1724,16 @@ const App = () => {
                       </div>
 
                       {/* Information Note */}
-                      <div className="bg-amber-50 rounded-lg p-4 border border-amber-200 mt-6">
+                      <div className="bg-red-50 rounded-lg p-4 border border-red-200 mt-6">
                         <div className="flex items-start space-x-3">
                           <div className="flex-shrink-0">
-                            <svg className="w-5 h-5 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                             </svg>
                           </div>
                           <div className="flex-1">
-                            <h5 className="text-sm font-semibold text-amber-800 mb-1">Booking Information</h5>
-                            <p className="text-sm text-amber-700 leading-relaxed">
+                            <h5 className="text-sm font-semibold text-red-800 mb-1">Booking Information</h5>
+                            <p className="text-sm text-red-700 leading-relaxed">
                               Select your preferred date and time slot. We'll confirm availability and provide an exact arrival window. All bookings include a 30-minute call-ahead notice.
                             </p>
                           </div>
@@ -1755,9 +1757,9 @@ const App = () => {
 
                     <div className="space-y-6">
                       {/* Service Summary */}
-                      <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200">
+                      <div className="bg-red-50 rounded-2xl p-6 border border-red-200">
                         <div className="flex items-center space-x-3 mb-4">
-                          <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
+                          <div className="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center">
                             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
@@ -1947,7 +1949,7 @@ const App = () => {
                     {currentStep < 5 ? (
                       <button
                         onClick={nextStep}
-                        className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold group"
+                        className="flex items-center space-x-2 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold group"
                       >
                         <span>Continue</span>
                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1990,7 +1992,7 @@ const App = () => {
           <div className="flex min-h-full items-center justify-center p-4">
             <div className="relative transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all w-full max-w-md">
               {/* Header */}
-              <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-4">
+              <div className="bg-red-500 px-6 py-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2001,7 +2003,7 @@ const App = () => {
                     <h3 id="confirm-exit-title" className="text-lg font-semibold text-white">
                       You're Almost Done!
                     </h3>
-                    <p className="text-amber-100 text-sm mt-1">
+                    <p className="text-red-100 text-sm mt-1">
                       Don't lose your progress
                     </p>
                   </div>
@@ -2011,8 +2013,8 @@ const App = () => {
               {/* Content */}
               <div className="px-6 py-6">
                 <div className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center">
-                    <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
+                    <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -2027,8 +2029,8 @@ const App = () => {
                   </div>
 
                   {/* Progress indicator */}
-                  <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
-                    <div className="flex items-center justify-center space-x-2 text-amber-700">
+                  <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                    <div className="flex items-center justify-center space-x-2 text-red-700">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
@@ -2050,7 +2052,7 @@ const App = () => {
                 </button>
                 <button
                   onClick={cancelExit}
-                  className="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold order-1 sm:order-2"
+                  className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold order-1 sm:order-2"
                 >
                   Stay & Continue
                 </button>
@@ -2064,7 +2066,7 @@ const App = () => {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-4 right-4 z-50 p-2 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 text-amber-600 border border-amber-200 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-125`}
+          className={`fixed bottom-4 right-4 z-50 p-2 bg-red-50 text-red-600 border border-red-200 rounded-full shadow-lg hover:shadow-xl hover:bg-red-100 transition-all duration-300 hover:scale-125`}
           style={{
             animation: isScrolling ? 'bounce 0.6s ease-out 3' : 'gentleBounce 2.5s ease-in-out infinite'
           }}
