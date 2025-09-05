@@ -284,6 +284,15 @@ const App = () => {
     }, 800)
   }
 
+  const [showDetails, setShowDetails] = useState({})
+  
+  const toggleDetails = (serviceIndex) => {
+    setShowDetails(prev => ({
+      ...prev,
+      [serviceIndex]: !prev[serviceIndex]
+    }))
+  }
+
   const services = [
     {
       title: "End of Lease Cleaning",
@@ -1156,17 +1165,19 @@ const App = () => {
                       {services.map((service, index) => (
                         <div
                           key={index}
-                          className={`group relative border-2 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:shadow-md ${quoteFormData.service === service.title
+                          className={`group relative border-2 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:shadow-md ${
+                            quoteFormData.service === service.title
                               ? 'border-amber-500 bg-gradient-to-br from-amber-50 to-orange-50 shadow-md scale-[1.01]'
                               : 'border-gray-200 hover:border-amber-300'
-                            }`}
+                          }`}
                           onClick={() => updateRootFormData('service', service.title)}
                         >
                           {/* Selection indicator */}
                           <div className="absolute top-3 right-3">
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${quoteFormData.service === service.title
-                                ? 'border-amber-500 bg-amber-500'
-                                : 'border-gray-300 group-hover:border-amber-400'
+                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                                quoteFormData.service === service.title
+                                  ? 'border-amber-500 bg-amber-500'
+                                  : 'border-gray-300 group-hover:border-amber-400'
                               }`}>
                               {quoteFormData.service === service.title && (
                                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -1178,17 +1189,51 @@ const App = () => {
 
                           <div className="pr-6">
                             <h5 className="font-bold text-gray-800 mb-2">{service.title}</h5>
-                            <p className="text-gray-600 text-sm mb-3 leading-relaxed">{service.description}</p>
-
-                            {/* Features list - more compact */}
-                            <div className="space-y-1">
-                              {service.features.slice(0, 2).map((feature, idx) => (
-                                <div key={idx} className="flex items-center text-xs text-gray-700">
-                                  <div className="w-1 h-1 rounded-full bg-amber-500 mr-2 flex-shrink-0"></div>
-                                  <span>{feature}</span>
+                            
+                            {/* Conditional content display */}
+                            {!showDetails[index] ? (
+                              /* Compact view - only View More button */
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  toggleDetails(index)
+                                }}
+                                className="text-amber-600 hover:text-amber-700 text-sm font-medium flex items-center transition-colors"
+                              >
+                                View More
+                                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                              </button>
+                            ) : (
+                              /* Expanded view - description and features */
+                              <>
+                                <p className="text-gray-600 text-sm mb-3 leading-relaxed">{service.description}</p>
+                                
+                                {/* Features list - more compact */}
+                                <div className="space-y-1 mb-3">
+                                  {service.features.slice(0, 2).map((feature, idx) => (
+                                    <div key={idx} className="flex items-center text-xs text-gray-700">
+                                      <div className="w-1 h-1 rounded-full bg-amber-500 mr-2 flex-shrink-0"></div>
+                                      <span>{feature}</span>
+                                    </div>
+                                  ))}
                                 </div>
-                              ))}
-                            </div>
+                                
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation()
+                                    toggleDetails(index)
+                                  }}
+                                  className="text-amber-600 hover:text-amber-700 text-sm font-medium flex items-center transition-colors"
+                                >
+                                  View Less
+                                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+                                  </svg>
+                                </button>
+                              </>
+                            )}
                           </div>
                         </div>
                       ))}
@@ -1366,43 +1411,82 @@ const App = () => {
                       <div className="space-y-6">
                         <div className="border-t border-gray-200 pt-6">
                           <h5 className="text-lg font-semibold text-gray-800 mb-4">Address Information</h5>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="md:col-span-2 space-y-2">
-                              <label className="block text-sm font-semibold text-gray-700">
-                                Street Address
-                              </label>
-                              <input
-                                type="text"
-                                value={quoteFormData.propertyDetails.address}
-                                onChange={(e) => updateFormData('propertyDetails', 'address', e.target.value)}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
-                                placeholder="123 Main Street"
-                              />
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {/* Address Form Fields */}
+                            <div className="space-y-6">
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="md:col-span-2 space-y-2">
+                                  <label className="block text-sm font-semibold text-gray-700">
+                                    Street Address
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={quoteFormData.propertyDetails.address}
+                                    onChange={(e) => updateFormData('propertyDetails', 'address', e.target.value)}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    placeholder="123 Main Street"
+                                  />
+                                </div>
+                                <div className="space-y-2">
+                                  <label className="block text-sm font-semibold text-gray-700">
+                                    Suburb
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={quoteFormData.propertyDetails.suburb}
+                                    onChange={(e) => updateFormData('propertyDetails', 'suburb', e.target.value)}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    placeholder="Toowoomba"
+                                  />
+                                </div>
+                                <div className="space-y-2">
+                                  <label className="block text-sm font-semibold text-gray-700">
+                                    Postcode *
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={quoteFormData.propertyDetails.postcode}
+                                    onChange={(e) => updateFormData('propertyDetails', 'postcode', e.target.value)}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    placeholder="4350"
+                                  />
+                                </div>
+                              </div>
                             </div>
+                                                    
+                            {/* Google Map */}
                             <div className="space-y-2">
                               <label className="block text-sm font-semibold text-gray-700">
-                                Postcode *
+                                Service Area Coverage Map
                               </label>
-                              <input
-                                type="text"
-                                value={quoteFormData.propertyDetails.postcode}
-                                onChange={(e) => updateFormData('propertyDetails', 'postcode', e.target.value)}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
-                                placeholder="4350"
-                              />
+                              <div className="relative bg-gray-100 rounded-xl overflow-hidden border border-gray-300 h-64">
+                                <iframe
+                                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57337.99327706676!2d151.9269271!3d-27.5627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b96b2d55e8bf5c5%3A0x5017d681632ccc0!2sToowoomba%20QLD%2C%20Australia!5e0!3m2!1sen!2sau!4v1699000000000!5m2!1sen!2sau"
+                                  width="100%"
+                                  height="100%"
+                                  style={{ border: 0 }}
+                                  allowFullScreen=""
+                                  loading="lazy"
+                                  referrerPolicy="no-referrer-when-downgrade"
+                                  title="Service Area Map - Toowoomba"
+                                  className="rounded-xl"
+                                ></iframe>
+                                                        
+                                {/* Map Overlay Info */}
+                                <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
+                                  <div className="flex items-center space-x-2">
+                                    <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 24 24">
+                                      <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+                                    </svg>
+                                    <span className="text-xs font-medium text-gray-700">Service Area: Toowoomba & Surrounds</span>
+                                  </div>
+                                </div>
+                              </div>
+                                                      
+                              <p className="text-xs text-gray-600 mt-2">
+                                We service Toowoomba and surrounding areas. The map shows our primary coverage zone.
+                              </p>
                             </div>
-                          </div>
-                          <div className="mt-4 space-y-2">
-                            <label className="block text-sm font-semibold text-gray-700">
-                              Suburb
-                            </label>
-                            <input
-                              type="text"
-                              value={quoteFormData.propertyDetails.suburb}
-                              onChange={(e) => updateFormData('propertyDetails', 'suburb', e.target.value)}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-gray-800"
-                              placeholder="Toowoomba"
-                            />
                           </div>
                         </div>
 
