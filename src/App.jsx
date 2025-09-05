@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import logo from './assets/logo.png'
+import carpetBefore from './assets/carpet-before.jpg'
+import carpetAfter from './assets/carpet-after.jpg'
+import roofBefore from './assets/roof-before.jpg'
+import roofAfter from './assets/roof-after.jpg'
+import windowBefore from './assets/window-before.jpg'
+import windowAfter from './assets/window-after.jpg'
 
 const AnimatedNumber = ({ value, duration = 2000, suffix = "", delay = 0 }) => {
   const [count, setCount] = useState(0);
@@ -32,11 +38,15 @@ const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [currentImageSet, setCurrentImageSet] = useState(0)
   const [showScrollTop, setShowScrollTop] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
   const [showConfirmExit, setShowConfirmExit] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const [dragStart, setDragStart] = useState(null)
+  const [dragOffset, setDragOffset] = useState(0)
   const [quoteFormData, setQuoteFormData] = useState({
     service: '',
     subServices: [],
@@ -74,8 +84,18 @@ const App = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+      if (!isDragging) {  // Only auto-advance if not currently dragging
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+      }
     }, 5000)
+    return () => clearInterval(interval)
+  }, [isDragging])
+
+  // Auto-rotate before/after images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageSet((prev) => (prev + 1) % 3) // 3 image sets: carpet, roof, window
+    }, 4000) // Change every 4 seconds
     return () => clearInterval(interval)
   }, [])
 
@@ -293,6 +313,69 @@ const App = () => {
     }))
   }
 
+  // Drag handlers for testimonials
+  const handleDragStart = (e) => {
+    setIsDragging(true)
+    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
+    setDragStart(clientX)
+    setDragOffset(0)
+  }
+
+  const handleDragMove = (e) => {
+    if (!isDragging || dragStart === null) return
+    
+    e.preventDefault()
+    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
+    const offset = clientX - dragStart
+    setDragOffset(offset)
+  }
+
+  const handleDragEnd = () => {
+    if (!isDragging) return
+    
+    setIsDragging(false)
+    
+    // Determine if drag was significant enough to trigger a slide
+    const threshold = 100
+    if (Math.abs(dragOffset) > threshold) {
+      if (dragOffset > 0) {
+        // Dragged right, go to previous
+        setCurrentTestimonial((prev) => 
+          prev === 0 ? testimonials.length - 1 : prev - 1
+        )
+      } else {
+        // Dragged left, go to next
+        setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
+      }
+    }
+    
+    // Reset drag state
+    setDragStart(null)
+    setDragOffset(0)
+  }
+
+  // Image sets for before/after rotation
+  const imageSets = [
+    {
+      before: carpetBefore,
+      after: carpetAfter,
+      beforeAlt: "Dirty carpet before cleaning",
+      afterAlt: "Clean carpet after professional cleaning"
+    },
+    {
+      before: roofBefore,
+      after: roofAfter,
+      beforeAlt: "Dirty roof before pressure washing",
+      afterAlt: "Clean roof after pressure washing"
+    },
+    {
+      before: windowBefore,
+      after: windowAfter,
+      beforeAlt: "Dirty windows before cleaning",
+      afterAlt: "Spotless windows after professional cleaning"
+    }
+  ]
+
   const services = [
     {
       title: "End of Lease Cleaning",
@@ -335,6 +418,85 @@ const App = () => {
       image: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-red-500 to-red-600",
       features: ["Property protection", "Seamless drainage", "Curb appeal enhancement"]
+    }
+  ]
+
+  // Team members data
+  const teamMembers = [
+    {
+      name: "Sarah Mitchell",
+      role: "Founder & Lead Cleaner",
+      experience: "8+ years",
+      specialty: "End of Lease Cleaning",
+      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop&crop=face&auto=format&q=75",
+      description: "Sarah founded Ilovah Cleaning with a passion for delivering spotless results. She has helped over 500+ tenants get their bonds back."
+    },
+    {
+      name: "Michael Johnson",
+      role: "Senior Cleaning Specialist",
+      experience: "6+ years",
+      specialty: "Carpet & Upholstery",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face&auto=format&q=75",
+      description: "Michael is our carpet cleaning expert with advanced certifications in stain removal and fabric care."
+    },
+    {
+      name: "Emma Wilson",
+      role: "Residential Cleaning Expert",
+      experience: "5+ years",
+      specialty: "Deep Cleaning & Organization",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face&auto=format&q=75",
+      description: "Emma brings meticulous attention to detail to every home she cleans. She's known for her eco-friendly cleaning approach."
+    },
+    {
+      name: "David Chen",
+      role: "Commercial Cleaning Supervisor",
+      experience: "7+ years",
+      specialty: "Pressure Washing & Commercial",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face&auto=format&q=75",
+      description: "David leads our commercial cleaning operations with expertise in pressure washing and large-scale cleaning projects."
+    }
+  ]
+
+  // FAQ data
+  const [openFAQ, setOpenFAQ] = useState(null)
+  const [showMoreFAQs, setShowMoreFAQs] = useState(false)
+  
+  const toggleFAQ = (index) => {
+    setOpenFAQ(openFAQ === index ? null : index)
+  }
+
+  const faqs = [
+    {
+      question: "Do you guarantee bond back for end of lease cleaning?",
+      answer: "Yes! We offer a 100% bond back guarantee for our end of lease cleaning service. If your property manager identifies any cleaning issues during the final inspection, we'll return to fix them at no additional cost."
+    },
+    {
+      question: "What cleaning products do you use? Are they safe?",
+      answer: "We use professional-grade, eco-friendly cleaning products that are safe for children, pets, and the environment. All our products are non-toxic and biodegradable while still providing superior cleaning results."
+    },
+    {
+      question: "How far in advance should I book your services?",
+      answer: "We recommend booking at least 1-2 weeks in advance, especially during busy periods like end of month for lease cleanings. However, we do our best to accommodate urgent requests when possible."
+    },
+    {
+      question: "Are you insured and what happens if something gets damaged?",
+      answer: "Yes, we are fully insured with comprehensive public liability coverage. In the unlikely event of damage, our insurance will cover the cost of repair or replacement. We take every precaution to protect your property."
+    },
+    {
+      question: "Do I need to provide cleaning supplies and equipment?",
+      answer: "No, we bring all our own professional cleaning supplies and equipment. This includes vacuum cleaners, mops, brushes, and all cleaning chemicals. You don't need to worry about providing anything."
+    },
+    {
+      question: "What areas do you service?",
+      answer: "We service Toowoomba and surrounding areas including North Toowoomba, Middle Ridge, Hodgson Vale, Helidon, and nearby suburbs. Contact us to confirm if we service your specific location."
+    },
+    {
+      question: "How long does a typical cleaning service take?",
+      answer: "Cleaning time varies by service type and property size. A standard home cleaning takes 2-4 hours, while end of lease cleaning can take 4-8 hours. We'll provide an accurate time estimate when we quote your job."
+    },
+    {
+      question: "Can I be present during the cleaning?",
+      answer: "You're welcome to be present, but it's not necessary. Many of our clients prefer to leave us to work while they're at work or running errands. We're fully trustworthy and professional."
     }
   ]
 
@@ -454,7 +616,7 @@ const App = () => {
 
             {/* Clean Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              {['Services', 'About', 'Reviews', 'Contact'].map((item) => (
+              {['Services', 'Team', 'Reviews', 'FAQ', 'Contact'].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -487,7 +649,7 @@ const App = () => {
           {isMenuOpen && (
             <div className="md:hidden pb-6 border-t border-red-100">
               <div className="flex flex-col space-y-4 pt-4">
-                {['Services', 'About', 'Reviews', 'Contact'].map((item) => (
+                {['Services', 'Team', 'Reviews', 'FAQ', 'Contact'].map((item) => (
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
@@ -764,6 +926,65 @@ const App = () => {
         </div>
       </section>
 
+      {/* Meet Our Expert Team Section */}
+      <section id="team" className="py-20 bg-white relative">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(239,68,68,0.05) 0%, transparent 50%),
+                             radial-gradient(circle at 75% 75%, rgba(239,68,68,0.03) 0%, transparent 50%)`
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              Our Team
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 sm:mb-6">
+              Meet Our Expert Team
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+              Our experienced professionals are dedicated to delivering exceptional cleaning results with a smile
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="group text-center">
+                {/* Circular Profile Picture */}
+                <div className="relative inline-block mb-4 sm:mb-6">
+                  <div className="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full overflow-hidden shadow-xl border-4 border-white group-hover:border-red-200 transition-all duration-300">
+                    <img
+                      src={member.image}
+                      alt={`${member.name} - ${member.role}`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                  {/* Experience Badge */}
+                  <div className="absolute -bottom-1 sm:-bottom-2 left-1/2 transform -translate-x-1/2">
+                    <span className="px-2 py-1 sm:px-3 sm:py-1 bg-red-500 text-white text-xs font-bold rounded-full shadow-lg border-2 border-white whitespace-nowrap">
+                      {member.experience}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Team Member Info */}
+                <div className="px-2 sm:px-4">
+                  <h3 className="text-lg font-bold text-gray-800 mb-2 leading-tight">{member.name}</h3>
+                  <p className="text-red-600 font-semibold mb-4 text-sm leading-tight">{member.role}</p>
+                  <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
+                    {member.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
       {/* Enhanced Before & After with Real Images */}
       <section className="py-20 bg-white/60 backdrop-blur-sm">
         <div className="container mx-auto px-6">
@@ -784,9 +1005,9 @@ const App = () => {
               <div className="grid md:grid-cols-2">
                 <div className="relative">
                   <img
-                    src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=600&h=400&fit=crop&crop=center&auto=format&q=75"
-                    alt="Dirty carpet before cleaning"
-                    className="w-full h-80 object-cover"
+                    src={imageSets[currentImageSet].before}
+                    alt={imageSets[currentImageSet].beforeAlt}
+                    className="w-full h-80 object-cover transition-all duration-500"
                     loading="lazy"
                   />
                   <div className="absolute top-0 left-0">
@@ -798,9 +1019,9 @@ const App = () => {
 
                 <div className="relative">
                   <img
-                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop&crop=center&auto=format&q=75"
-                    alt="Clean carpet after professional cleaning"
-                    className="w-full h-80 object-cover"
+                    src={imageSets[currentImageSet].after}
+                    alt={imageSets[currentImageSet].afterAlt}
+                    className="w-full h-80 object-cover transition-all duration-500"
                     loading="lazy"
                   />
                   <div className="absolute top-0 right-0">
@@ -834,12 +1055,19 @@ const App = () => {
             <div className="relative overflow-hidden" role="region" aria-label="Customer testimonials carousel" aria-live="polite">
               {/* Testimonials Container */}
               <div
-                className="flex transition-transform duration-700 ease-in-out"
+                className={`flex ${isDragging ? '' : 'transition-transform duration-700 ease-in-out'} cursor-grab active:cursor-grabbing select-none`}
                 style={{
-                  transform: `translateX(-${currentTestimonial * 100}%)`
+                  transform: `translateX(calc(-${currentTestimonial * 100}% + ${isDragging ? dragOffset : 0}px))`
                 }}
                 role="group"
                 aria-label="Customer testimonials"
+                onMouseDown={handleDragStart}
+                onMouseMove={handleDragMove}
+                onMouseUp={handleDragEnd}
+                onMouseLeave={handleDragEnd}
+                onTouchStart={handleDragStart}
+                onTouchMove={handleDragMove}
+                onTouchEnd={handleDragEnd}
               >
                 {testimonials.map((testimonial, index) => (
                   <article
@@ -896,6 +1124,112 @@ const App = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 bg-white/60 backdrop-blur-sm">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+              FAQ
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 sm:mb-6">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              Get answers to common questions about our cleaning services
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-4">
+              {faqs.slice(0, showMoreFAQs ? faqs.length : 4).map((faq, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-md border border-red-100 overflow-hidden transition-all duration-300 hover:shadow-lg"
+                >
+                  <button
+                    onClick={() => toggleFAQ(index)}
+                    className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-red-50 transition-colors duration-200"
+                    aria-expanded={openFAQ === index}
+                  >
+                    <h3 className="text-lg font-semibold text-gray-800 pr-4">
+                      {faq.question}
+                    </h3>
+                    <div className="flex-shrink-0">
+                      <svg
+                        className={`w-6 h-6 text-red-500 transform transition-transform duration-200 ${
+                          openFAQ === index ? 'rotate-180' : ''
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </button>
+                  
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="px-6 pb-5 border-t border-red-100">
+                      <p className="text-gray-700 leading-relaxed pt-4">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Show More/Less Text */}
+            {faqs.length > 4 && (
+              <div className="text-center mt-8">
+                <span
+                  onClick={() => setShowMoreFAQs(!showMoreFAQs)}
+                  style={{
+                    color: '#dc2626',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    transition: 'all 0.3s ease',
+                    textDecoration: 'underline'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = '#b91c1c';
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = '#dc2626';
+                    e.target.style.transform = 'scale(1)';
+                  }}
+                >
+                  {showMoreFAQs ? (
+                    <>
+                      Show Less
+                      <svg style={{ width: '16px', height: '16px', marginLeft: '8px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+                      </svg>
+                    </>
+                  ) : (
+                    <>
+                      Show More
+                      <svg style={{ width: '16px', height: '16px', marginLeft: '8px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </>
+                  )}
+                </span>
+              </div>
+            )}
+
+
           </div>
         </div>
       </section>
