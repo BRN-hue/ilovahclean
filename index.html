@@ -161,7 +161,23 @@
     }
     </script>
     
+    <!-- Google Fonts - Corporate Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
 
     <style>
       /* Welcome screen */
@@ -171,12 +187,75 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(135deg, #fef3c7, #fed7aa);
+        background: 
+          radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.3) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.2) 0%, transparent 50%),
+          radial-gradient(circle at 40% 80%, rgba(254, 215, 170, 0.4) 0%, transparent 50%),
+          repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(251, 191, 36, 0.05) 10px,
+            rgba(251, 191, 36, 0.05) 20px
+          ),
+          repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 15px,
+            rgba(245, 158, 11, 0.03) 15px,
+            rgba(245, 158, 11, 0.03) 30px
+          ),
+          linear-gradient(135deg, #fef3c7, #fed7aa);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 9999;
         transition: opacity 0.8s ease-out;
+        animation: backgroundShift 6s ease-in-out infinite alternate;
+      }
+      
+      /* Animated background pattern */
+      @keyframes backgroundShift {
+        0% {
+          background-position: 0% 0%, 100% 100%, 50% 50%, 0% 0%, 0% 0%, 0% 0%;
+        }
+        100% {
+          background-position: 20% 20%, 80% 80%, 30% 70%, 10px 10px, -10px -10px, 0% 0%;
+        }
+      }
+      
+      /* Add floating particles effect */
+      .welcome-screen::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+          radial-gradient(circle at 10% 20%, rgba(251, 191, 36, 0.1) 2px, transparent 2px),
+          radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.15) 1px, transparent 1px),
+          radial-gradient(circle at 40% 40%, rgba(254, 215, 170, 0.1) 1.5px, transparent 1.5px),
+          radial-gradient(circle at 70% 10%, rgba(251, 191, 36, 0.08) 2px, transparent 2px),
+          radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.12) 1px, transparent 1px);
+        background-size: 60px 60px, 80px 80px, 100px 100px, 120px 120px, 90px 90px;
+        animation: float 8s ease-in-out infinite;
+        pointer-events: none;
+      }
+      
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) translateX(0px);
+        }
+        25% {
+          transform: translateY(-10px) translateX(5px);
+        }
+        50% {
+          transform: translateY(-5px) translateX(-3px);
+        }
+        75% {
+          transform: translateY(-15px) translateX(2px);
+        }
       }
       .welcome-screen.fade-out {
         opacity: 0;

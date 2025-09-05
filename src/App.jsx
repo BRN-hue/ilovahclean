@@ -32,8 +32,11 @@ const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [isScrolling, setIsScrolling] = useState(false)
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
   const [currentStep, setCurrentStep] = useState(1)
+  const [showConfirmExit, setShowConfirmExit] = useState(false)
   const [quoteFormData, setQuoteFormData] = useState({
     service: '',
     subServices: [],
@@ -61,7 +64,10 @@ const App = () => {
   })
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+      setShowScrollTop(window.scrollY > 300)
+    }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -115,6 +121,14 @@ const App = () => {
 
   // Generate available time slots for each day
   const generateTimeSlots = (date) => {
+    // Safety check for invalid date
+    if (!date || isNaN(date.getTime())) {
+      return {
+        morning: [],
+        afternoon: []
+      }
+    }
+    
     const slots = {
       morning: ['9:00 AM', '10:00 AM', '11:00 AM'],
       afternoon: ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM']
@@ -191,12 +205,40 @@ const App = () => {
   }
 
   const isDateSelected = (date) => {
+    if (!quoteFormData.scheduling.selectedDate) {
+      return false
+    }
     return formatDate(date) === quoteFormData.scheduling.selectedDate
   }
 
   const closeQuoteModal = () => {
+    // Check if user has made any progress (past step 1 or has entered any data)
+    const hasProgress = currentStep > 1 || 
+      quoteFormData.service || 
+      quoteFormData.contactInfo.firstName || 
+      quoteFormData.contactInfo.lastName || 
+      quoteFormData.contactInfo.email || 
+      quoteFormData.contactInfo.phone || 
+      quoteFormData.propertyDetails.propertyType || 
+      quoteFormData.propertyDetails.postcode || 
+      quoteFormData.scheduling.selectedDate
+    
+    if (hasProgress) {
+      setShowConfirmExit(true)
+    } else {
+      // No progress made, close directly
+      actuallyCloseModal()
+    }
+  }
+
+  const actuallyCloseModal = () => {
     setIsQuoteModalOpen(false)
     setCurrentStep(1)
+    setShowConfirmExit(false)
+  }
+
+  const cancelExit = () => {
+    setShowConfirmExit(false)
   }
 
   const nextStep = () => {
@@ -226,6 +268,20 @@ const App = () => {
       ...prev,
       [field]: value
     }))
+  }
+
+  // Scroll to top function with bouncing animation
+  const scrollToTop = () => {
+    setIsScrolling(true)
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+    
+    // Reset animation state after scroll completes
+    setTimeout(() => {
+      setIsScrolling(false)
+    }, 800)
   }
 
   const services = [
@@ -724,12 +780,10 @@ const App = () => {
                     className="w-full h-80 object-cover"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-red-500/20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 text-center">
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-red-700 mb-2">BEFORE</h3>
-                      <p className="text-sm sm:text-base text-red-600">Stained & Dirty</p>
-                    </div>
+                  <div className="absolute top-0 left-0">
+                    <span className="px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold shadow-md rounded-br-lg">
+                      BEFORE
+                    </span>
                   </div>
                 </div>
 
@@ -740,12 +794,10 @@ const App = () => {
                     className="w-full h-80 object-cover"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-green-500/20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 text-center">
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-green-700 mb-2">AFTER</h3>
-                      <p className="text-sm sm:text-base text-green-600">Fresh & Spotless</p>
-                    </div>
+                  <div className="absolute top-0 right-0">
+                    <span className="px-3 py-1 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-bold shadow-md rounded-bl-lg">
+                      AFTER
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1479,14 +1531,22 @@ const App = () => {
                       {quoteFormData.scheduling.selectedDate && (
                         <div className="border-t border-gray-200 pt-6">
                           <h4 className="text-lg font-semibold text-gray-800 mb-4">
-                            Available Time Slots for {new Date(quoteFormData.scheduling.selectedDate + 'T00:00:00').toLocaleDateString('en-US', {
+                            Available Time Slots for {quoteFormData.scheduling.selectedDate ? new Date(quoteFormData.scheduling.selectedDate + 'T00:00:00').toLocaleDateString('en-US', {
                               weekday: 'long',
                               month: 'long',
                               day: 'numeric'
-                            })}
+                            }) : 'Selected Date'}
                           </h4>
 
                           {(() => {
+                            if (!quoteFormData.scheduling.selectedDate) {
+                              return (
+                                <div className="text-center py-8">
+                                  <p className="text-gray-500">Please select a date first</p>
+                                </div>
+                              )
+                            }
+                            
                             const selectedDate = new Date(quoteFormData.scheduling.selectedDate + 'T00:00:00')
                             const slots = generateTimeSlots(selectedDate)
 
@@ -1815,7 +1875,7 @@ const App = () => {
                         onClick={() => {
                           // Handle form submission here
                           alert('Quote request submitted successfully! \n\nOur team will contact you within 2 hours with your personalized quote.\n\nThank you for choosing Ilovah Cleaning Services!')
-                          closeQuoteModal()
+                          actuallyCloseModal()
                         }}
                         className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg font-semibold group"
                       >
@@ -1833,6 +1893,141 @@ const App = () => {
         </div>
       )}
 
+      {/* Confirmation Exit Modal */}
+      {showConfirmExit && (
+        <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="confirm-exit-title" role="dialog" aria-modal="true">
+          {/* Background overlay */}
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+            aria-hidden="true"
+          ></div>
+
+          {/* Confirmation modal */}
+          <div className="flex min-h-full items-center justify-center p-4">
+            <div className="relative transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all w-full max-w-md">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 id="confirm-exit-title" className="text-lg font-semibold text-white">
+                      You're Almost Done!
+                    </h3>
+                    <p className="text-amber-100 text-sm mt-1">
+                      Don't lose your progress
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="px-6 py-6">
+                <div className="text-center space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-amber-100 rounded-full flex items-center justify-center">
+                    <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  
+                  <div>
+                    <p className="text-gray-800 font-medium text-lg mb-2">
+                      Are you sure you want to leave?
+                    </p>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      You've made progress on your quote request. If you leave now, you'll lose all the information you've entered and will need to start over.
+                    </p>
+                  </div>
+
+                  {/* Progress indicator */}
+                  <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
+                    <div className="flex items-center justify-center space-x-2 text-amber-700">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-sm font-medium">
+                        Step {currentStep} of 5 completed
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row gap-3 sm:gap-3 sm:justify-end">
+                <button
+                  onClick={actuallyCloseModal}
+                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 hover:border-gray-400 transition-all duration-200 font-medium order-2 sm:order-1"
+                >
+                  Yes, Leave
+                </button>
+                <button
+                  onClick={cancelExit}
+                  className="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold order-1 sm:order-2"
+                >
+                  Stay & Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-4 right-4 z-50 p-2 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 text-amber-600 border border-amber-200 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-125`}
+          style={{
+            animation: isScrolling ? 'bounce 0.6s ease-out 3' : 'gentleBounce 2.5s ease-in-out infinite'
+          }}
+          aria-label="Scroll to top"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2.5"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </button>
+      )}
+
+      {/* Custom bounce keyframes */}
+      <style jsx>{`
+        @keyframes bounce {
+          0%, 20%, 53%, 80%, 100% {
+            transform: translate3d(0, 0, 0);
+          }
+          40%, 43% {
+            transform: translate3d(0, -15px, 0);
+          }
+          70% {
+            transform: translate3d(0, -7px, 0);
+          }
+          90% {
+            transform: translate3d(0, -2px, 0);
+          }
+        }
+        @keyframes gentleBounce {
+          0%, 100% {
+            transform: translate3d(0, 0, 0);
+          }
+          50% {
+            transform: translate3d(0, -8px, 0);
+          }
+        }
+      `}</style>
     </main>
   )
 }
