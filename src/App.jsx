@@ -75,8 +75,25 @@ const App = () => {
       setScrollY(window.scrollY)
       setShowScrollTop(window.scrollY > 300)
     }
+    
+    // Handle dynamic viewport height for mobile browsers
+    const handleViewportHeight = () => {
+      const vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    }
+    
+    // Set initial viewport height
+    handleViewportHeight()
+    
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleViewportHeight)
+    window.addEventListener('orientationchange', handleViewportHeight)
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleViewportHeight)
+      window.removeEventListener('orientationchange', handleViewportHeight)
+    }
   }, [])
 
   useEffect(() => {
@@ -1387,7 +1404,69 @@ const App = () => {
 
       {/* Quote Modal */}
       {isQuoteModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <>
+          {/* Custom CSS for mobile viewport handling */}
+          <style jsx>{`
+            .modal-container {
+              min-height: 100vh;
+              min-height: 100dvh; /* Dynamic viewport height for modern browsers */
+            }
+            .modal-panel {
+              max-height: calc(100vh - 16px);
+              max-height: calc(100dvh - 16px); /* Dynamic viewport height */
+            }
+            .modal-content {
+              max-height: calc(100vh - 180px);
+              max-height: calc(100dvh - 180px); /* Dynamic viewport height */
+            }
+            @supports not (height: 100dvh) {
+              /* Fallback for browsers without dvh support */
+              .modal-container {
+                min-height: calc(var(--vh, 1vh) * 100);
+              }
+              .modal-panel {
+                max-height: calc(var(--vh, 1vh) * 100 - 16px);
+              }
+              .modal-content {
+                max-height: calc(var(--vh, 1vh) * 100 - 180px);
+              }
+            }
+            
+            /* Additional mobile-specific fixes */
+            @media screen and (max-height: 600px) {
+              .modal-panel {
+                max-height: calc(100vh - 8px);
+                max-height: calc(100dvh - 8px);
+              }
+              .modal-content {
+                max-height: calc(100vh - 120px);
+                max-height: calc(100dvh - 120px);
+              }
+            }
+            
+            /* Prevent horizontal scroll on very small screens */
+            @media screen and (max-width: 320px) {
+              .modal-panel {
+                margin: 4px;
+                max-width: calc(100vw - 8px);
+              }
+            }
+            
+            /* Touch interaction optimizations */
+            .modal-content {
+              touch-action: pan-y;
+              -webkit-overflow-scrolling: touch;
+            }
+            
+            /* Prevent zoom on input focus on iOS */
+            @media screen and (max-width: 480px) {
+              input, select, textarea {
+                font-size: 16px !important;
+              }
+            }
+          `}</style>
+          
+          <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           {/* Background overlay with blur effect */}
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
@@ -1396,9 +1475,9 @@ const App = () => {
           ></div>
 
           {/* Modal container - centered and responsive */}
-          <div className="flex min-h-full items-center justify-center p-2 sm:p-4">
-            {/* Modal panel - optimized height */}
-            <div className="relative transform overflow-hidden rounded-xl bg-white shadow-2xl transition-all w-full max-w-4xl max-h-[95vh] flex flex-col">
+          <div className="modal-container flex items-center justify-center p-2 sm:p-4">
+            {/* Modal panel - mobile-optimized height and constraints */}
+            <div className="modal-panel relative transform overflow-hidden rounded-xl bg-white shadow-2xl transition-all w-full max-w-4xl flex flex-col">
               {/* Modal Header - refined compact design */}
               <div className="relative bg-white px-4 py-4 sm:px-6 flex-shrink-0 border-b border-gray-200">
                 {/* Decorative background pattern */}
@@ -1499,8 +1578,8 @@ const App = () => {
                 </div>
               </div>
 
-              {/* Modal Content - scrollable with compact styling */}
-              <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+              {/* Modal Content - scrollable with mobile-optimized styling */}
+              <div className="modal-content flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                 {/* Step 1: Service Selection */}
                 {currentStep === 1 && (
                   <div className="space-y-6">
@@ -2245,6 +2324,7 @@ const App = () => {
             </div>
           </div>
         </div>
+        </>
       )}
 
       {/* Confirmation Exit Modal */}
