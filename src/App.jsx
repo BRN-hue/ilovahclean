@@ -58,9 +58,6 @@ const App = () => {
       preferredContact: 'phone'
     },
     propertyDetails: {
-      propertyType: '',
-      bedrooms: '',
-      bathrooms: '',
       address: '',
       suburb: '',
       postcode: '',
@@ -114,9 +111,6 @@ const App = () => {
         preferredContact: 'phone'
       },
       propertyDetails: {
-        propertyType: '',
-        bedrooms: '',
-        bathrooms: '',
         address: '',
         suburb: '',
         postcode: '',
@@ -239,7 +233,7 @@ const App = () => {
       quoteFormData.contactInfo.lastName || 
       quoteFormData.contactInfo.email || 
       quoteFormData.contactInfo.phone || 
-      quoteFormData.propertyDetails.propertyType || 
+ 
       quoteFormData.propertyDetails.postcode || 
       quoteFormData.scheduling.selectedDate
     
@@ -1406,7 +1400,7 @@ const App = () => {
             {/* Modal panel - optimized height */}
             <div className="relative transform overflow-hidden rounded-xl bg-white shadow-2xl transition-all w-full max-w-4xl max-h-[95vh] flex flex-col">
               {/* Modal Header - refined compact design */}
-              <div className="relative bg-red-500 px-4 py-4 sm:px-6 flex-shrink-0">
+              <div className="relative bg-white px-4 py-4 sm:px-6 flex-shrink-0 border-b border-gray-200">
                 {/* Decorative background pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute inset-0" style={{
@@ -1417,70 +1411,91 @@ const App = () => {
 
                 {/* Horizontal circle progress bar - mobile optimized */}
                 <div className="relative">
-                  <div className="flex items-center justify-center px-2 sm:px-8">
-                    {[1, 2, 3, 4, 5].map((step, index) => (
-                      <div key={step} className="flex items-center flex-1">
-                        {/* Step circle and content */}
-                        <div className="flex flex-col items-center relative z-10">
-                          <div className={`w-8 h-8 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${currentStep > step
-                              ? 'bg-white text-red-600' // Completed - white with red text
-                              : currentStep === step
-                                ? 'bg-white text-red-600' // Current - white with red text
-                                : 'bg-white/20 border-2 border-white/40 text-white/80' // Future - transparent with white text
-                            }`}>
-                            {currentStep > step ? (
-                              <svg className="w-3 h-3 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
-                            ) : (
-                              <span className={`text-xs sm:text-sm font-bold ${currentStep >= step ? 'text-red-600' : 'text-white/80'
+                  <div className="flex items-center justify-between px-1 sm:px-8">
+                    {/* Previous Button - fixed width container */}
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
+                      {currentStep > 1 ? (
+                        <button
+                          onClick={prevStep}
+                          className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-100 backdrop-blur-sm flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-all duration-200 group border border-gray-300"
+                        >
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                          </svg>
+                        </button>
+                      ) : (
+                        <div className="w-6 h-6 sm:w-8 sm:h-8"></div>
+                      )}
+                    </div>
+
+                    {/* Progress Steps - centered and flexible */}
+                    <div className="flex items-center justify-center flex-1 px-1">
+                      {[1, 2, 3, 4, 5].map((step, index) => (
+                        <div key={step} className="flex items-center">
+                          {/* Step circle and content */}
+                          <div className="flex flex-col items-center relative z-10">
+                            <div className={`w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${currentStep > step
+                                ? 'bg-red-500 text-white' // Completed - red with white text
+                                : currentStep === step
+                                  ? 'bg-red-500 text-white' // Current - red with white text
+                                  : 'bg-gray-200 border-2 border-gray-300 text-gray-500' // Future - light gray
+                              }`}>
+                              {currentStep > step ? (
+                                <svg className="w-2 h-2 sm:w-3 sm:h-3 lg:w-6 lg:h-6" fill="currentColor" viewBox="0 0 20 20">
+                                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                </svg>
+                              ) : (
+                                <span className={`text-xs sm:text-xs lg:text-sm font-bold ${currentStep >= step ? 'text-white' : 'text-gray-500'
+                                  }`}>
+                                  {step}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Step labels - hidden on mobile for space */}
+                            <div className="mt-1 sm:mt-2 lg:mt-3 text-center hidden sm:block">
+                              <div className={`text-xs lg:text-sm font-semibold ${currentStep >= step ? 'text-gray-800' : 'text-gray-500'
                                 }`}>
-                                {step < 10 ? `0${step}` : step}
-                              </span>
-                            )}
+                                {['Service', 'Contact', 'Property', 'Schedule', 'Review'][step - 1]}
+                              </div>
+                              <div className={`text-xs mt-1 hidden lg:block ${currentStep >= step ? 'text-gray-600' : 'text-gray-400'
+                                }`}>
+                                {[
+                                  'Select service',
+                                  'Your details',
+                                  'Property info',
+                                  'Schedule time',
+                                  'Review & submit'
+                                ][step - 1]}
+                              </div>
+                            </div>
                           </div>
 
-                          {/* Step labels */}
-                          <div className="mt-2 sm:mt-3 text-center">
-                            <div className={`text-xs sm:text-sm font-semibold ${currentStep >= step ? 'text-white' : 'text-white/70'
-                              }`}>
-                              {['Service', 'Contact', 'Property', 'Schedule', 'Review'][step - 1]}
+                          {/* Connecting line - horizontal only */}
+                          {index < 4 && (
+                            <div className="w-3 sm:w-6 lg:w-12 h-0.5 mx-0.5 sm:mx-1 lg:mx-2 relative z-0" style={{ marginTop: currentStep === 1 ? '0' : '-15px' }}>
+                              <div className={`h-full w-full transition-all duration-300 ${currentStep > step
+                                  ? 'bg-red-500'
+                                  : 'bg-gray-200'
+                                }`}></div>
                             </div>
-                            <div className={`text-xs mt-1 hidden sm:block ${currentStep >= step ? 'text-white/90' : 'text-white/60'
-                              }`}>
-                              {[
-                                'Select service',
-                                'Your details',
-                                'Property info',
-                                'Schedule time',
-                                'Review & submit'
-                              ][step - 1]}
-                            </div>
-                          </div>
+                          )}
                         </div>
+                      ))}
+                    </div>
 
-                        {/* Connecting line - horizontal only */}
-                        {index < 4 && (
-                          <div className="flex-1 h-0.5 mx-1 sm:mx-4 relative z-0" style={{ marginTop: '-30px' }}>
-                            <div className={`h-full w-full transition-all duration-300 ${currentStep > step
-                                ? 'bg-white'
-                                : 'bg-white/20'
-                              }`}></div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                    {/* Close Button - fixed width container */}
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
+                      <button
+                        onClick={closeQuoteModal}
+                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-100 backdrop-blur-sm flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-all duration-200 group border border-gray-300"
+                      >
+                        <svg className="h-3 w-3 sm:h-4 sm:w-4 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-
-                  {/* Close button positioned at the end of progress bar */}
-                  <button
-                    onClick={closeQuoteModal}
-                    className="absolute top-0 right-0 w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-200 group border border-white/30"
-                  >
-                    <svg className="h-4 w-4 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
                 </div>
               </div>
 
@@ -1691,79 +1706,25 @@ const App = () => {
 
                 {/* Step 3: Property Details */}
                 {currentStep === 3 && (
-                  <div className="space-y-8">
+                  <div className="space-y-4">
                     <div className="text-center">
-                      <h4 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
+                      <h4 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
                         Property Details
                       </h4>
-                      <p className="text-gray-600 text-base sm:text-lg">
+                      <p className="text-gray-600 text-sm sm:text-base">
                         Help us provide an accurate quote by telling us about your property
                       </p>
                     </div>
 
-                    <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 space-y-6">
-                      {/* Property Type and Size */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="space-y-2">
-                          <label className="block text-sm font-semibold text-gray-700">
-                            Property Type *
-                          </label>
-                          <select
-                            value={quoteFormData.propertyDetails.propertyType}
-                            onChange={(e) => updateFormData('propertyDetails', 'propertyType', e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
-                          >
-                            <option value="">Select property type</option>
-                            <option value="house">House</option>
-                            <option value="apartment">Apartment</option>
-                            <option value="townhouse">Townhouse</option>
-                            <option value="office">Office</option>
-                            <option value="commercial">Commercial</option>
-                          </select>
-                        </div>
-                        <div className="space-y-2">
-                          <label className="block text-sm font-semibold text-gray-700">
-                            Bedrooms
-                          </label>
-                          <select
-                            value={quoteFormData.propertyDetails.bedrooms}
-                            onChange={(e) => updateFormData('propertyDetails', 'bedrooms', e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
-                          >
-                            <option value="">Select bedrooms</option>
-                            <option value="studio">Studio</option>
-                            <option value="1">1 Bedroom</option>
-                            <option value="2">2 Bedrooms</option>
-                            <option value="3">3 Bedrooms</option>
-                            <option value="4">4 Bedrooms</option>
-                            <option value="5+">5+ Bedrooms</option>
-                          </select>
-                        </div>
-                        <div className="space-y-2">
-                          <label className="block text-sm font-semibold text-gray-700">
-                            Bathrooms
-                          </label>
-                          <select
-                            value={quoteFormData.propertyDetails.bathrooms}
-                            onChange={(e) => updateFormData('propertyDetails', 'bathrooms', e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800 bg-white"
-                          >
-                            <option value="">Select bathrooms</option>
-                            <option value="1">1 Bathroom</option>
-                            <option value="2">2 Bathrooms</option>
-                            <option value="3">3 Bathrooms</option>
-                            <option value="4+">4+ Bathrooms</option>
-                          </select>
-                        </div>
-                      </div>
+                    <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 space-y-4">
 
                       {/* Address Information */}
-                      <div className="space-y-6">
-                        <div className="border-t border-gray-200 pt-6">
-                          <h5 className="text-lg font-semibold text-gray-800 mb-4">Address Information</h5>
-                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="text-lg font-semibold text-gray-800 mb-3">Address Information</h5>
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             {/* Address Form Fields */}
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2 space-y-2">
                                   <label className="block text-sm font-semibold text-gray-700">
@@ -1841,8 +1802,8 @@ const App = () => {
                         </div>
 
                         {/* Special Requirements */}
-                        <div className="border-t border-gray-200 pt-6">
-                          <h5 className="text-lg font-semibold text-gray-800 mb-4">Additional Information</h5>
+                        <div className="border-t border-gray-200 pt-4">
+                          <h5 className="text-lg font-semibold text-gray-800 mb-3">Additional Information</h5>
                           <div className="space-y-2">
                             <label className="block text-sm font-semibold text-gray-700">
                               Special Requirements or Access Instructions
@@ -2093,83 +2054,69 @@ const App = () => {
 
                 {/* Step 5: Preview and Submit */}
                 {currentStep === 5 && (
-                  <div className="space-y-8">
+                  <div className="space-y-4">
                     <div className="text-center">
-                      <h4 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3">
-                        Review Your Quote Request
+                      <h4 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
+                        Review Your Request
                       </h4>
-                      <p className="text-gray-600 text-base sm:text-lg">
+                      <p className="text-gray-600 text-sm sm:text-base">
                         Please review your information before submitting
                       </p>
                     </div>
 
                     <div className="space-y-6">
                       {/* Service Summary */}
-                      <div className="bg-red-50 rounded-2xl p-6 border border-red-200">
-                        <div className="flex items-center space-x-3 mb-4">
-                          <div className="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center">
-                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div>
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                             </svg>
                           </div>
-                          <h5 className="text-lg font-bold text-gray-800">Service Selected</h5>
+                          <h5 className="font-semibold text-gray-800">Service Selected</h5>
                         </div>
-                        <p className="text-gray-700 font-medium text-lg">{quoteFormData.service}</p>
+                        <p className="text-gray-700 font-medium ml-11">{quoteFormData.service}</p>
+                        <div className="border-b border-gray-200 mt-4"></div>
                       </div>
 
                       {/* Contact Info Summary */}
-                      <div className="bg-gray-50 rounded-2xl p-6">
-                        <div className="flex items-center space-x-3 mb-4">
-                          <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div>
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                           </div>
-                          <h5 className="text-lg font-bold text-gray-800">Contact Information</h5>
+                          <h5 className="font-semibold text-gray-800">Contact Information</h5>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+                        <div className="ml-11 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
                           <div className="flex items-center space-x-2">
                             <span className="font-medium text-gray-800">Name:</span>
                             <span>{quoteFormData.contactInfo.firstName} {quoteFormData.contactInfo.lastName}</span>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Email:</span>
-                            <span className="break-all">{quoteFormData.contactInfo.email}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
                             <span className="font-medium text-gray-800">Phone:</span>
                             <span>{quoteFormData.contactInfo.phone}</span>
                           </div>
-                          <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Contact via:</span>
-                            <span className="capitalize">{quoteFormData.contactInfo.preferredContact}</span>
+                          <div className="flex items-center space-x-2 sm:col-span-2">
+                            <span className="font-medium text-gray-800">Email:</span>
+                            <span className="break-all">{quoteFormData.contactInfo.email}</span>
                           </div>
                         </div>
+                        <div className="border-b border-gray-200 mt-4"></div>
                       </div>
 
                       {/* Property Details Summary */}
-                      <div className="bg-gray-50 rounded-2xl p-6">
-                        <div className="flex items-center space-x-3 mb-4">
-                          <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
-                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div>
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                             </svg>
                           </div>
-                          <h5 className="text-lg font-bold text-gray-800">Property Details</h5>
+                          <h5 className="font-semibold text-gray-800">Property Details</h5>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
-                          <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Type:</span>
-                            <span className="capitalize">{quoteFormData.propertyDetails.propertyType}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Bedrooms:</span>
-                            <span>{quoteFormData.propertyDetails.bedrooms}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Bathrooms:</span>
-                            <span>{quoteFormData.propertyDetails.bathrooms}</span>
-                          </div>
+                        <div className="ml-11 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
                           <div className="flex items-center space-x-2">
                             <span className="font-medium text-gray-800">Postcode:</span>
                             <span>{quoteFormData.propertyDetails.postcode}</span>
@@ -2187,75 +2134,72 @@ const App = () => {
                             </div>
                           )}
                           {quoteFormData.propertyDetails.specialRequirements && (
-                            <div className="sm:col-span-2">
+                            <div className="sm:col-span-2 mt-2">
                               <div className="font-medium text-gray-800 mb-1">Special Requirements:</div>
-                              <div className="text-gray-700 bg-white rounded-lg p-3 border">
+                              <div className="text-gray-700 bg-gray-50 rounded-lg p-2 text-xs">
                                 {quoteFormData.propertyDetails.specialRequirements}
                               </div>
                             </div>
                           )}
                         </div>
+                        <div className="border-b border-gray-200 mt-4"></div>
                       </div>
 
                       {/* Scheduling Summary */}
-                      <div className="bg-gray-50 rounded-2xl p-6">
-                        <div className="flex items-center space-x-3 mb-4">
-                          <div className="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
-                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div>
+                        <div className="flex items-center space-x-3 mb-3">
+                          <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                           </div>
-                          <h5 className="text-lg font-bold text-gray-800">Scheduling Preferences</h5>
+                          <h5 className="font-semibold text-gray-800">Scheduling</h5>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+                        <div className="ml-11 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-700">
                           <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Selected Date:</span>
+                            <span className="font-medium text-gray-800">Date:</span>
                             <span>
                               {quoteFormData.scheduling.selectedDate
                                 ? new Date(quoteFormData.scheduling.selectedDate + 'T00:00:00').toLocaleDateString('en-US', {
-                                  weekday: 'long',
-                                  month: 'long',
-                                  day: 'numeric',
-                                  year: 'numeric'
+                                  weekday: 'short',
+                                  month: 'short',
+                                  day: 'numeric'
                                 })
                                 : 'Not selected'
                               }
                             </span>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Time Slot:</span>
+                            <span className="font-medium text-gray-800">Time:</span>
                             <span>{quoteFormData.scheduling.selectedTimeSlot || 'Not selected'}</span>
                           </div>
-                          <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">Urgency:</span>
-                            <span className="capitalize">{quoteFormData.scheduling.urgency.replace('_', ' ')}</span>
-                          </div>
                         </div>
+                        <div className="border-b border-gray-200 mt-4"></div>
                       </div>
 
-                      {/* Next Steps Information */}
-                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
-                        <div className="flex items-start space-x-4">
+                      {/* Professional Next Steps */}
+                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
+                        <div className="flex items-start space-x-3">
                           <div className="flex-shrink-0">
-                            <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
-                              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                               </svg>
                             </div>
                           </div>
                           <div className="flex-1">
-                            <h5 className="text-lg font-bold text-green-800 mb-2">What happens next?</h5>
-                            <div className="space-y-2 text-sm text-green-700">
+                            <h5 className="font-semibold text-green-800 mb-2">What happens next?</h5>
+                            <div className="space-y-1 text-sm text-green-700">
                               <div className="flex items-center space-x-2">
-                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                                <div className="w-1 h-1 bg-green-500 rounded-full"></div>
                                 <span>We'll contact you within 2 hours with your personalized quote</span>
                               </div>
                               <div className="flex items-center space-x-2">
-                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                                <div className="w-1 h-1 bg-green-500 rounded-full"></div>
                                 <span>We'll confirm your preferred date and time</span>
                               </div>
                               <div className="flex items-center space-x-2">
-                                <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                                <div className="w-1 h-1 bg-green-500 rounded-full"></div>
                                 <span>We'll call 30 minutes before arrival on service day</span>
                               </div>
                             </div>
@@ -2269,57 +2213,33 @@ const App = () => {
 
               {/* Compact Modal Footer */}
               <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-4 sm:px-6 border-t border-gray-200 flex-shrink-0">
-                <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
-                  {/* Previous Button */}
-                  <div className="flex items-center">
-                    {currentStep > 1 && (
-                      <button
-                        onClick={prevStep}
-                        className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-200 rounded-lg transition-all duration-200 group"
-                      >
-                        <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                        <span className="font-medium">Previous</span>
-                      </button>
-                    )}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex space-x-3">
+                <div className="flex justify-center">
+                  {/* Centered Action Button */}
+                  {currentStep < 5 ? (
                     <button
-                      onClick={closeQuoteModal}
-                      className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200 font-medium"
+                      onClick={nextStep}
+                      className="flex items-center space-x-2 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold group"
                     >
-                      Cancel
+                      <span>Next</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                      </svg>
                     </button>
-
-                    {currentStep < 5 ? (
-                      <button
-                        onClick={nextStep}
-                        className="flex items-center space-x-2 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold group"
-                      >
-                        <span>Continue</span>
-                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => {
-                          // Handle form submission here
-                          alert('Quote request submitted successfully! \n\nOur team will contact you within 2 hours with your personalized quote.\n\nThank you for choosing Ilovah Cleaning Services!')
-                          actuallyCloseModal()
-                        }}
-                        className="flex items-center space-x-2 px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg font-semibold group"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                        </svg>
-                        <span>Submit Request</span>
-                      </button>
-                    )}
-                  </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        // Handle form submission here
+                        alert('Quote request submitted successfully! \n\nOur team will contact you within 2 hours with your personalized quote.\n\nThank you for choosing Ilovah Cleaning Services!')
+                        actuallyCloseModal()
+                      }}
+                      className="flex items-center justify-center space-x-2 px-8 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold group min-w-[160px]"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                      <span>Submit Request</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
