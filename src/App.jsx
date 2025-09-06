@@ -1416,8 +1416,8 @@ const App = () => {
               max-height: calc(100dvh - 16px); /* Dynamic viewport height */
             }
             .modal-content {
-              max-height: calc(100vh - 180px);
-              max-height: calc(100dvh - 180px); /* Dynamic viewport height */
+              max-height: calc(100vh - 160px);
+              max-height: calc(100dvh - 160px); /* Dynamic viewport height */
             }
             @supports not (height: 100dvh) {
               /* Fallback for browsers without dvh support */
@@ -1428,7 +1428,7 @@ const App = () => {
                 max-height: calc(var(--vh, 1vh) * 100 - 16px);
               }
               .modal-content {
-                max-height: calc(var(--vh, 1vh) * 100 - 180px);
+                max-height: calc(var(--vh, 1vh) * 100 - 160px);
               }
             }
             
@@ -1438,6 +1438,14 @@ const App = () => {
                 max-height: calc(100vh - 8px);
                 max-height: calc(100dvh - 8px);
               }
+              .modal-content {
+                max-height: calc(100vh - 140px);
+                max-height: calc(100dvh - 140px);
+              }
+            }
+            
+            /* Extra small height screens - ensure button is always visible */
+            @media screen and (max-height: 500px) {
               .modal-content {
                 max-height: calc(100vh - 120px);
                 max-height: calc(100dvh - 120px);
@@ -1456,6 +1464,32 @@ const App = () => {
             .modal-content {
               touch-action: pan-y;
               -webkit-overflow-scrolling: touch;
+            }
+            
+            /* Mobile Chrome specific fixes */
+            @media screen and (max-height: 700px) {
+              .modal-content {
+                max-height: calc(100vh - 140px);
+                max-height: calc(100dvh - 140px);
+              }
+            }
+            
+            @media screen and (max-height: 600px) {
+              .modal-content {
+                max-height: calc(100vh - 120px) !important;
+                max-height: calc(100dvh - 120px) !important;
+              }
+            }
+            
+            /* Ensure Next button is always accessible on mobile */
+            @media screen and (max-width: 640px) and (max-height: 700px) {
+              .modal-panel {
+                margin: 4px;
+              }
+              .modal-content {
+                max-height: calc(100vh - 100px) !important;
+                max-height: calc(100dvh - 100px) !important;
+              }
             }
             
             /* Prevent zoom on input focus on iOS */
@@ -1479,7 +1513,7 @@ const App = () => {
             {/* Modal panel - mobile-optimized height and constraints */}
             <div className="modal-panel relative transform overflow-hidden rounded-xl bg-white shadow-2xl transition-all w-full max-w-4xl flex flex-col">
               {/* Modal Header - refined compact design */}
-              <div className="relative bg-white px-4 py-4 sm:px-6 flex-shrink-0 border-b border-gray-200">
+              <div className="relative bg-white px-4 py-3 sm:py-4 sm:px-6 flex-shrink-0 border-b border-gray-200">
                 {/* Decorative background pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute inset-0" style={{
@@ -1579,7 +1613,7 @@ const App = () => {
               </div>
 
               {/* Modal Content - scrollable with mobile-optimized styling */}
-              <div className="modal-content flex-1 overflow-y-auto px-4 py-6 sm:px-6">
+              <div className="modal-content flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-6">
                 {/* Step 1: Service Selection */}
                 {currentStep === 1 && (
                   <div className="space-y-6">
@@ -2291,7 +2325,7 @@ const App = () => {
               </div>
 
               {/* Compact Modal Footer */}
-              <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-4 sm:px-6 border-t border-gray-200 flex-shrink-0">
+              <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-3 sm:py-4 sm:px-6 border-t border-gray-200 flex-shrink-0">
                 <div className="flex justify-center">
                   {/* Centered Action Button */}
                   {currentStep < 5 ? (
