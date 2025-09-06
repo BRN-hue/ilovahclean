@@ -791,8 +791,8 @@ const App = () => {
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                     loading="lazy"
                   />
-                  {/* Overlay - consistent darker overlay */}
-                  <div className="absolute inset-0 bg-black/50"></div>
+                  {/* Subtle gradient overlay at bottom for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 </div>
 
                 {/* Content */}
@@ -809,18 +809,18 @@ const App = () => {
 
                   {/* Main Text */}
                   <div className="text-white mt-auto">
-                    <h3 className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold mb-1 sm:mb-3 drop-shadow-lg leading-tight">
+                    <h3 className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold mb-1 sm:mb-3 drop-shadow-2xl leading-tight">
                       {service.title}
                     </h3>
 
-                    <p className="text-white/95 mb-2 sm:mb-6 leading-snug sm:leading-relaxed drop-shadow-md text-xs sm:text-sm md:text-base line-clamp-3 sm:line-clamp-none">
+                    <p className="text-white/95 mb-2 sm:mb-6 leading-snug sm:leading-relaxed drop-shadow-xl text-xs sm:text-sm md:text-base line-clamp-3 sm:line-clamp-none">
                       {service.description}
                     </p>
 
                     {/* Button - always visible */}
                     <button
                       onClick={() => openQuoteModal(service.title)}
-                      className="w-full py-2 sm:py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white font-semibold hover:bg-white/30 hover:shadow-lg transform hover:scale-105 text-xs sm:text-sm transition-all duration-300"
+                      className="w-full py-2 sm:py-3 rounded-lg bg-black/30 backdrop-blur-sm border border-white/50 text-white font-semibold hover:bg-black/40 hover:shadow-lg transform hover:scale-105 text-xs sm:text-sm transition-all duration-300"
                     >
                       Book Now
                     </button>
@@ -1002,12 +1002,12 @@ const App = () => {
 
           <div className="max-w-5xl mx-auto">
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-red-100">
-              <div className="grid md:grid-cols-2">
+              <div className="grid grid-cols-2">
                 <div className="relative">
                   <img
                     src={imageSets[currentImageSet].before}
                     alt={imageSets[currentImageSet].beforeAlt}
-                    className="w-full h-80 object-cover transition-all duration-500"
+                    className="w-full h-48 sm:h-64 md:h-80 object-cover transition-all duration-500"
                     loading="lazy"
                   />
                   <div className="absolute top-0 left-0">
@@ -1021,7 +1021,7 @@ const App = () => {
                   <img
                     src={imageSets[currentImageSet].after}
                     alt={imageSets[currentImageSet].afterAlt}
-                    className="w-full h-80 object-cover transition-all duration-500"
+                    className="w-full h-48 sm:h-64 md:h-80 object-cover transition-all duration-500"
                     loading="lazy"
                   />
                   <div className="absolute top-0 right-0">
@@ -1129,38 +1129,38 @@ const App = () => {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 bg-white/60 backdrop-blur-sm">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+      <section id="faq" className="py-12 sm:py-16 md:py-20 bg-white/60 backdrop-blur-sm">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <div className="inline-block bg-red-100 text-red-800 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
               FAQ
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-3 sm:mb-4 md:mb-6">
               Frequently Asked Questions
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
               Get answers to common questions about our cleaning services
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="space-y-4">
+            <div className="space-y-2 sm:space-y-3 md:space-y-4">
               {faqs.slice(0, showMoreFAQs ? faqs.length : 4).map((faq, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-xl shadow-md border border-red-100 overflow-hidden transition-all duration-300 hover:shadow-lg"
+                  className="bg-white rounded-lg sm:rounded-xl shadow-md border border-red-100 overflow-hidden transition-all duration-300 hover:shadow-lg"
                 >
                   <button
                     onClick={() => toggleFAQ(index)}
-                    className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-red-50 transition-colors duration-200"
+                    className="w-full px-4 py-3 sm:px-6 sm:py-4 md:py-5 text-left flex justify-between items-center hover:bg-red-50 transition-colors duration-200"
                     aria-expanded={openFAQ === index}
                   >
-                    <h3 className="text-lg font-semibold text-gray-800 pr-4">
+                    <h3 className="text-sm sm:text-base md:text-lg font-semibold text-gray-800 pr-3 sm:pr-4 leading-tight">
                       {faq.question}
                     </h3>
                     <div className="flex-shrink-0">
                       <svg
-                        className={`w-6 h-6 text-red-500 transform transition-transform duration-200 ${
+                        className={`w-5 h-5 sm:w-6 sm:h-6 text-red-500 transform transition-transform duration-200 ${
                           openFAQ === index ? 'rotate-180' : ''
                         }`}
                         fill="none"
@@ -1177,8 +1177,8 @@ const App = () => {
                       openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <div className="px-6 pb-5 border-t border-red-100">
-                      <p className="text-gray-700 leading-relaxed pt-4">
+                    <div className="px-4 pb-3 sm:px-6 sm:pb-4 md:pb-5 border-t border-red-100">
+                      <p className="text-xs sm:text-sm md:text-base text-gray-700 leading-relaxed pt-3 sm:pt-4">
                         {faq.answer}
                       </p>
                     </div>
@@ -1189,7 +1189,7 @@ const App = () => {
 
             {/* Show More/Less Text */}
             {faqs.length > 4 && (
-              <div className="text-center mt-8">
+              <div className="text-center mt-6 sm:mt-8">
                 <span
                   onClick={() => setShowMoreFAQs(!showMoreFAQs)}
                   style={{
@@ -1199,7 +1199,8 @@ const App = () => {
                     display: 'inline-flex',
                     alignItems: 'center',
                     transition: 'all 0.3s ease',
-                    textDecoration: 'underline'
+                    textDecoration: 'underline',
+                    fontSize: '14px'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.color = '#b91c1c';
@@ -1213,14 +1214,14 @@ const App = () => {
                   {showMoreFAQs ? (
                     <>
                       Show Less
-                      <svg style={{ width: '16px', height: '16px', marginLeft: '8px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg style={{ width: '14px', height: '14px', marginLeft: '6px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
                       </svg>
                     </>
                   ) : (
                     <>
                       Show More
-                      <svg style={{ width: '16px', height: '16px', marginLeft: '8px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg style={{ width: '14px', height: '14px', marginLeft: '6px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                       </svg>
                     </>
@@ -1523,8 +1524,20 @@ const App = () => {
                             </div>
                           </div>
 
-                          <div className="pr-6">
-                            <h5 className="font-bold text-gray-800 mb-2">{service.title}</h5>
+                          <div className="flex items-start gap-4">
+                            {/* Small Service Image on the left */}
+                            <div className="flex-shrink-0">
+                              <img
+                                src={service.image}
+                                alt={service.title}
+                                className="w-16 h-16 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                                loading="lazy"
+                              />
+                            </div>
+                            
+                            {/* Content on the right */}
+                            <div className="flex-1">
+                              <h5 className="font-bold text-gray-800 mb-2">{service.title}</h5>
                             
                             {/* Conditional content display */}
                             {!showDetails[index] ? (
@@ -1570,6 +1583,7 @@ const App = () => {
                                 </button>
                               </>
                             )}
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -2324,72 +2338,31 @@ const App = () => {
 
           {/* Confirmation modal */}
           <div className="flex min-h-full items-center justify-center p-4">
-            <div className="relative transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all w-full max-w-md">
-              {/* Header */}
-              <div className="bg-red-500 px-6 py-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 id="confirm-exit-title" className="text-lg font-semibold text-white">
-                      You're Almost Done!
-                    </h3>
-                    <p className="text-red-100 text-sm mt-1">
-                      Don't lose your progress
-                    </p>
-                  </div>
-                </div>
-              </div>
-
+            <div className="relative transform overflow-hidden rounded-xl bg-white shadow-xl transition-all w-full max-w-sm">
               {/* Content */}
-              <div className="px-6 py-6">
-                <div className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center">
-                    <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  
-                  <div>
-                    <p className="text-gray-800 font-medium text-lg mb-2">
-                      Are you sure you want to leave?
-                    </p>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      You've made progress on your quote request. If you leave now, you'll lose all the information you've entered and will need to start over.
-                    </p>
-                  </div>
+              <div className="px-6 py-6 text-center">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                  Leave without saving?
+                </h3>
+                <p className="text-gray-600 text-sm mb-6">
+                  Your progress will be lost.
+                </p>
 
-                  {/* Progress indicator */}
-                  <div className="bg-red-50 rounded-lg p-4 border border-red-200">
-                    <div className="flex items-center justify-center space-x-2 text-red-700">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      <span className="text-sm font-medium">
-                        Step {currentStep} of 5 completed
-                      </span>
-                    </div>
-                  </div>
+                {/* Buttons */}
+                <div className="flex space-x-3">
+                  <button
+                    onClick={cancelExit}
+                    className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-200 font-medium"
+                  >
+                    Stay
+                  </button>
+                  <button
+                    onClick={actuallyCloseModal}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-200 font-medium"
+                  >
+                    Leave
+                  </button>
                 </div>
-              </div>
-
-              {/* Footer */}
-              <div className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row gap-3 sm:gap-3 sm:justify-end">
-                <button
-                  onClick={actuallyCloseModal}
-                  className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 hover:border-gray-400 transition-all duration-200 font-medium order-2 sm:order-1"
-                >
-                  Yes, Leave
-                </button>
-                <button
-                  onClick={cancelExit}
-                  className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-md hover:shadow-lg font-semibold order-1 sm:order-2"
-                >
-                  Stay & Continue
-                </button>
               </div>
             </div>
           </div>
