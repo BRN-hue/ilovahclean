@@ -548,34 +548,128 @@ const App = () => {
     {
       name: "Sarah Johnson",
       location: "Toowoomba City",
-      text: "I can't get enough of their window cleaning service! The professional service made a huge difference in the ambiance of my home.",
+      text: "I can't get enough of their window cleaning service! I'm extremely satisfied with the professional window cleaning service. It made a huge difference in the ambiance of my home.",
       service: "Window Cleaning",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "12 Sep 2024"
     },
     {
       name: "Michael Lee",
       location: "Hodgson Vale QLD",
-      text: "The carpet cleaning service exceeded my expectations. My carpets look brand new, and the fresh scent lingers for days.",
+      text: "Spotless carpets like never before! The carpet cleaning service exceeded my expectations. My carpets look brand new, and the fresh scent lingers for days. Highly recommended!",
       service: "Carpet Cleaning",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "8 Sep 2024"
     },
     {
       name: "Emily White",
       location: "Middle Ridge",
-      text: "I'm impressed by the effectiveness of their pest control service. A pest-free home has made a huge difference in our daily lives.",
+      text: "Reliable and thorough pest control! I'm impressed by the effectiveness of their pest control service. A pest-free home has made a huge difference in our daily lives.",
       service: "Pest Control",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "3 Sep 2024"
     },
     {
-      name: "Daniel Brown",
-      location: "Helidon",
-      text: "The end of lease cleaning service was thorough and efficient. It made the moving process much smoother.",
-      service: "End of Lease",
+      name: "Pratibha",
+      location: "Toowoomba, QLD",
+      text: "Francis was really good, punctual, reliable and effective. I would recommend Francis for a good house and carpets cleaning.",
+      service: "End of Lease Cleaning",
       rating: 5,
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face&auto=format&q=75"
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "27 Jul 2024"
+    },
+    {
+      name: "Joan K",
+      location: "Toowoomba, QLD",
+      text: "Frances worked efficiently and well, with an honest, friendly helpful manner. We look forward working again in the near future.",
+      service: "Window Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "18 Jun 2024"
+    },
+    {
+      name: "Patti H",
+      location: "East Toowoomba, QLD",
+      text: "Connected with ILOVAHCLEANING SERVICES and would recommend them. Excellent roof gutter cleaning service.",
+      service: "Cleaning Roof Gutters",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "24 May 2025"
+    },
+    {
+      name: "Daniel B",
+      location: "Meringandan West, QLD",
+      text: "Francis and his crew did a amazing job. Didn't think the house could get that clean. Great communication and very punctual and a very good price.",
+      service: "House Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "16 Aug 2024"
+    },
+    {
+      name: "Kui-Po L",
+      location: "Mount Lofty, QLD",
+      text: "Connected with ILOVAHCLEANING SERVICES and would recommend them. Professional carpet cleaning service.",
+      service: "Carpet Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "13 Jun 2024"
+    },
+    {
+      name: "Renya S",
+      location: "Amiens, QLD",
+      text: "Francis was able to help me out on short notice and he did such a thorough cleaning job for me. The best cleaner I've come across in a long time and I will be recommending him to others.",
+      service: "One Off Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "23 May 2024"
+    },
+    {
+      name: "Tiffany H",
+      location: "South Toowoomba, QLD",
+      text: "Friendly and expert clean. Professional service with excellent results.",
+      service: "House Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "22 May 2024"
+    },
+    {
+      name: "Leanna T",
+      location: "Wilsonton, QLD",
+      text: "Prompt and professional Service. Would definitely recommend.",
+      service: "Rental Bond Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "5 May 2024"
+    },
+    {
+      name: "Lesley S",
+      location: "Pechey, QLD",
+      text: "Reliable, professional and did a great job on my daughters house.",
+      service: "House Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "17 Feb 2024"
+    },
+    {
+      name: "JULIE M",
+      location: "Murphys Creek, QLD",
+      text: "Punctual, professional & wonderful job. Excellent house cleaning service.",
+      service: "House Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "15 Feb 2024"
+    },
+    {
+      name: "Steve L",
+      location: "Centenary Heights, QLD",
+      text: "Connected with ILOVAHCLEANING SERVICES and would recommend them. Great house cleaning service.",
+      service: "House Cleaning",
+      rating: 5,
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face&auto=format&q=75",
+      date: "17 Oct 2023"
     }
   ]
 
@@ -625,7 +719,7 @@ const App = () => {
                 <svg className="w-4 h-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
-                (04) 7871 1829
+                04 7871 1829
               </span>
               <span className="flex items-center">
                 <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -645,16 +739,15 @@ const App = () => {
                 <img
                   src={logo}
                   alt="Ilovah Cleaning Logo"
-                  className="w-14 h-14 object-contain rounded-lg transition-shadow duration-300"
+                  className="w-10 h-10 sm:w-14 sm:h-14 object-contain rounded-lg transition-shadow duration-300"
                 />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-800">
+                <h1 className="text-base sm:text-2xl font-bold text-gray-800">
                   <span className="text-red-600">
-                    Ilovah Cleaning
+                    iLovah Cleaning Services
                   </span>
                 </h1>
-                <p className="text-sm text-gray-500 -mt-1">Professional Cleaning Services</p>
               </div>
             </div>
 
@@ -740,7 +833,7 @@ const App = () => {
             <div className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-red-200 rounded-full px-4 py-2 mb-6 sm:px-6 sm:py-2 shadow-sm">
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
               <span className="text-xs sm:text-sm font-medium text-gray-700">
-                Professional • Reliable • Trusted Since 2020
+                Professional • Reliable • Trusted Since 2017
               </span>
               <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
             </div>
@@ -781,7 +874,7 @@ const App = () => {
 
               <a href="tel:0478711829">
                 <button className="px-8 sm:px-10 py-3 sm:py-4 bg-white border-2 border-red-300 text-red-700 rounded-xl font-semibold text-base sm:text-lg hover:bg-red-50 hover:border-red-400 transition-all duration-300 shadow-md hover:shadow-lg">
-                  Call (04) 7871 1829
+                  Call 04 7871 1829
                 </button>
               </a>
             </div>
@@ -1105,7 +1198,7 @@ const App = () => {
               What Our Customers Say
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600">
-              Real feedback from satisfied customers across Toowoomba
+              Real feedback from satisfied customers across Toowoomba ({testimonials.length} reviews)
             </p>
           </div>
 
@@ -1158,6 +1251,9 @@ const App = () => {
                           <h4 id={`testimonial-${index}-author`} className="font-bold text-gray-800 text-sm sm:text-base">{testimonial.name}</h4>
                           <p className="text-gray-600 text-xs sm:text-sm">{testimonial.location}</p>
                           <p className="text-red-600 font-medium text-xs">{testimonial.service}</p>
+                          {testimonial.date && (
+                            <p className="text-gray-500 text-xs">{testimonial.date}</p>
+                          )}
                         </div>
                       </footer>
                     </div>
@@ -1324,9 +1420,9 @@ const App = () => {
               Get Free Quote Now
             </button>
 
-            <a href="tel:0478711829" aria-label="Call Ilovah Cleaning Services at (04) 7871 1829">
+            <a href="tel:0478711829" aria-label="Call Ilovah Cleaning Services at 04 7871 1829">
               <button className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-white text-white rounded-xl font-bold text-base sm:text-lg hover:bg-white hover:text-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                Call (04) 7871 1829
+                Call 04 7871 1829
               </button>
             </a>
 
@@ -1347,8 +1443,7 @@ const App = () => {
                   className="w-16 h-16 object-contain rounded-lg"
                 />
                 <div className="text-center sm:text-left">
-                  <h3 className="text-2xl md:text-3xl font-bold">Ilovah Cleaning</h3>
-                  <p className="text-gray-400 text-sm md:text-base">Professional Cleaning Services</p>
+                  <h3 className="text-2xl md:text-3xl font-bold">Home Cleaning Service</h3>
                 </div>
               </div>
               
@@ -1394,7 +1489,7 @@ const App = () => {
                 <ul className="grid grid-cols-2 gap-2 text-sm md:text-base text-gray-300" role="list">
                   <li className="hover:text-red-400 transition-colors duration-300 cursor-pointer">End of Lease Cleaning</li>
                   <li className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">Pressure Washing</li>
-                  <li className="hover:text-red-400 transition-colors duration-300 cursor-pointer">Pest Management</li>
+                  <li className="hover:text-red-400 transition-colors duration-300 cursor-pointer">Pest Management Service</li>
                   <li className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">Carpet Cleaning</li>
                   <li className="hover:text-red-400 transition-colors duration-300 cursor-pointer">Window Cleaning</li>
                   <li className="hover:text-blue-400 transition-colors duration-300 cursor-pointer">Gutter Cleaning</li>
@@ -1415,7 +1510,7 @@ const App = () => {
                     <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clipRule="evenodd" />
                     </svg>
-                    <a href="tel:0478711829" className="hover:text-red-400 transition-colors duration-300">(04) 7871 1829</a>
+                    <a href="tel:0478711829" className="hover:text-red-400 transition-colors duration-300">04 7871 1829</a>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                     <svg className="w-5 h-5 text-red-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
@@ -1825,7 +1920,7 @@ const App = () => {
                             value={quoteFormData.contactInfo.phone}
                             onChange={(e) => updateFormData('contactInfo', 'phone', e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
-                            placeholder="(04) 1234 5678"
+                            placeholder="04 1234 5678"
                           />
                         </div>
                       </div>

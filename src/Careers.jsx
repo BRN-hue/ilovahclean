@@ -206,7 +206,7 @@ const Careers = () => {
                 <svg className="w-4 h-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
-                (04) 7871 1829
+                04 7871 1829
               </span>
               <span className="flex items-center">
                 <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -226,16 +226,15 @@ const Careers = () => {
                 <img
                   src={logo}
                   alt="Ilovah Cleaning Logo"
-                  className="w-14 h-14 object-contain rounded-lg transition-shadow duration-300"
+                  className="w-10 h-10 sm:w-14 sm:h-14 object-contain rounded-lg transition-shadow duration-300"
                 />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-800">
+                <h1 className="text-base sm:text-2xl font-bold text-gray-800">
                   <span className="text-red-600">
-                    Ilovah Cleaning
+                    iLovah Cleaning Services
                   </span>
                 </h1>
-                <p className="text-sm text-gray-500 -mt-1">Professional Cleaning Services</p>
               </div>
             </div>
 
@@ -674,7 +673,7 @@ const Careers = () => {
               <h4 className="font-medium mb-4">Contact</h4>
               <div className="space-y-2 text-sm text-gray-400">
                 <p>4 Kelfield Street, North Toowoomba QLD</p>
-                <p>(04) 7871 1829</p>
+                <p>04 7871 1829</p>
                 <p>ilovahcleaning@gmail.com</p>
               </div>
             </div>
