@@ -1538,6 +1538,7 @@ const App = () => {
                 <a href="#" className="hover:text-red-400 transition-colors duration-300">Privacy Policy</a>
                 <a href="#" className="hover:text-blue-400 transition-colors duration-300">Terms of Service</a>
                 <a href="#" className="hover:text-red-400 transition-colors duration-300">Sitemap</a>
+                <Link to="/admin" className="hover:text-gray-300 transition-colors duration-300 opacity-75">Admin</Link>
               </div>
             </div>
           </div>
