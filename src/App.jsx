@@ -59,9 +59,11 @@ const App = () => {
       preferredContact: 'phone'
     },
     propertyDetails: {
-      address: '',
+      streetAddress: '',
       suburb: '',
+      state: '',
       postcode: '',
+      country: '',
       specialRequirements: ''
     },
     scheduling: {
@@ -79,17 +81,16 @@ const App = () => {
     }
 
     // Show loading state
-    const originalAddress = quoteFormData.propertyDetails.address
-    updateFormData('propertyDetails', 'address', 'Getting your location...')
+    updateFormData('propertyDetails', 'streetAddress', 'Getting your location...')
 
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords
         
         try {
-          // Using OpenStreetMap Nominatim API to reverse geocode
+          // Using OpenStreetMap Nominatim API to reverse geocode with enhanced parameters
           const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1&zoom=18& namedetails=1`
           )
           
           if (!response.ok) {
@@ -98,36 +99,126 @@ const App = () => {
           
           const data = await response.json()
           
+          // Debug: Log the full response to see what data we're getting
+          console.log('Geocoding response:', data)
+          console.log('Address components:', data.address)
+          
           // Extract address components
           const address = data.address
-          let streetAddress = ''
           
-          // Construct street address from available components
-          if (address.house_number) {
-            streetAddress += address.house_number + ' '
+          // Construct street address from available components with better logic
+          // Build a more comprehensive street address
+          const streetComponents = []
+          
+          // Add building or complex name if available (often more specific than house number)
+          if (address.building) streetComponents.push(address.building)
+          else if (address.residential) streetComponents.push(address.residential)
+          else if (address.property) streetComponents.push(address.property)
+          
+          // Add house number if no building name
+          if (streetComponents.length === 0 && address.house_number) {
+            streetComponents.push(address.house_number)
           }
-          if (address.road) {
-            streetAddress += address.road
-          } else if (address.pedestrian) {
-            streetAddress += address.pedestrian
+          
+          // Add road/street name
+          if (address.road) streetComponents.push(address.road)
+          else if (address.pedestrian) streetComponents.push(address.pedestrian)
+          else if (address.footway) streetComponents.push(address.footway)
+          else if (address.path) streetComponents.push(address.path)
+          else if (address.cycleway) streetComponents.push(address.cycleway)
+          
+          // Add any additional street details
+          if (address.street) {
+            // Only add if it's different from road
+            if (!address.road || address.street !== address.road) {
+              streetComponents.push(address.street)
+            }
           }
+          
+          const streetAddress = streetComponents.join(' ')
+          
+          // Debug: Log the constructed street address
+          console.log('Constructed street address:', streetAddress)
+          console.log('Street components:', streetComponents)
+          
+          // More precise address component extraction with fallbacks
+          let suburb = ''
+          // Try to get the most specific locality information in order of preference
+          if (address.suburb) suburb = address.suburb
+          else if (address.neighbourhood) suburb = address.neighbourhood
+          else if (address.city_district) suburb = address.city_district
+          else if (address.locality) suburb = address.locality
+          else suburb = address.city || address.town || address.village || ''
+          
+          // State with fallbacks
+          let state = ''
+          if (address.state) state = address.state
+          else if (address.county) state = address.county
+          else if (address.region) state = address.region
+          
+          // Other components
+          const postcode = address.postcode || ''
+          const country = address.country || ''
           
           // Update form fields
-          updateFormData('propertyDetails', 'address', streetAddress || '')
-          updateFormData('propertyDetails', 'suburb', address.city || address.town || address.village || '')
-          updateFormData('propertyDetails', 'postcode', address.postcode || '')
+          updateFormData('propertyDetails', 'streetAddress', streetAddress.trim() || '')
+          updateFormData('propertyDetails', 'suburb', suburb.trim())
+          updateFormData('propertyDetails', 'state', state.trim())
+          updateFormData('propertyDetails', 'postcode', postcode.trim())
+          updateFormData('propertyDetails', 'country', country.trim())
         } catch (error) {
           console.error('Error getting location:', error)
-          updateFormData('propertyDetails', 'address', originalAddress)
-          alert('Unable to retrieve your address. Please enter it manually.')
+          updateFormData('propertyDetails', 'streetAddress', '')
+          alert('Unable to retrieve your precise address. The location service provided the nearest known address. Please review and correct if needed.')
         }
       },
       (error) => {
         console.error('Geolocation error:', error)
-        updateFormData('propertyDetails', 'address', originalAddress)
+        updateFormData('propertyDetails', 'streetAddress', '')
         alert('Unable to retrieve your location. Please enter your address manually.')
       }
     )
+  }
+
+  // Function to generate Google Maps URL based on address
+  const getGoogleMapsUrl = () => {
+    const { streetAddress, suburb, state, postcode, country } = quoteFormData.propertyDetails;
+    
+    // If we have a complete address, create a map for that location
+    if (streetAddress || suburb || state || postcode || country) {
+      // Build address in a more structured way for better accuracy
+      const addressComponents = [];
+      
+      // Add components in order of specificity
+      if (streetAddress && streetAddress.trim() !== '') {
+        addressComponents.push(streetAddress.trim());
+      }
+      if (suburb && suburb.trim() !== '') {
+        addressComponents.push(suburb.trim());
+      }
+      if (state && state.trim() !== '') {
+        addressComponents.push(state.trim());
+      }
+      if (postcode && postcode.trim() !== '') {
+        addressComponents.push(postcode.trim());
+      }
+      if (country && country.trim() !== '') {
+        addressComponents.push(country.trim());
+      }
+      
+      if (addressComponents.length > 0) {
+        // Join components with commas and encode for URL
+        const fullAddress = addressComponents.join(', ');
+        const encodedAddress = encodeURIComponent(fullAddress);
+        
+        // Use Google Maps search with more specific parameters
+        // Adding 'near' can help with accuracy in some cases
+        return `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+      }
+    }
+    
+    // Default map (Toowoomba service area)
+    return "https://www.google.com/maps?q=Toowoomba+QLD+Australia&output=embed";
   }
 
   useEffect(() => {
@@ -220,9 +311,11 @@ const App = () => {
         preferredContact: 'phone'
       },
       propertyDetails: {
-        address: '',
+        streetAddress: '',
         suburb: '',
+        state: '',
         postcode: '',
+        country: '',
         specialRequirements: ''
       },
       scheduling: {
@@ -342,7 +435,11 @@ const App = () => {
       quoteFormData.contactInfo.lastName || 
       quoteFormData.contactInfo.email || 
       quoteFormData.contactInfo.phone || 
+      quoteFormData.propertyDetails.streetAddress || 
+      quoteFormData.propertyDetails.suburb || 
+      quoteFormData.propertyDetails.state || 
       quoteFormData.propertyDetails.postcode || 
+      quoteFormData.propertyDetails.country || 
       quoteFormData.scheduling.selectedDate
     
     if (hasProgress) {
@@ -2061,19 +2158,19 @@ const App = () => {
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="md:col-span-2 space-y-2">
                                   <label className="block text-sm font-semibold text-gray-700">
-                                    Street Address
+                                    Street Address *
                                   </label>
                                   <input
                                     type="text"
-                                    value={quoteFormData.propertyDetails.address}
-                                    onChange={(e) => updateFormData('propertyDetails', 'address', e.target.value)}
+                                    value={quoteFormData.propertyDetails.streetAddress}
+                                    onChange={(e) => updateFormData('propertyDetails', 'streetAddress', e.target.value)}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                                     placeholder="123 Main Street"
                                   />
                                 </div>
                                 <div className="space-y-2">
                                   <label className="block text-sm font-semibold text-gray-700">
-                                    Suburb
+                                    Suburb *
                                   </label>
                                   <input
                                     type="text"
@@ -2081,6 +2178,18 @@ const App = () => {
                                     onChange={(e) => updateFormData('propertyDetails', 'suburb', e.target.value)}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                                     placeholder="Toowoomba"
+                                  />
+                                </div>
+                                <div className="space-y-2">
+                                  <label className="block text-sm font-semibold text-gray-700">
+                                    State *
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={quoteFormData.propertyDetails.state}
+                                    onChange={(e) => updateFormData('propertyDetails', 'state', e.target.value)}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    placeholder="QLD"
                                   />
                                 </div>
                                 <div className="space-y-2">
@@ -2093,6 +2202,18 @@ const App = () => {
                                     onChange={(e) => updateFormData('propertyDetails', 'postcode', e.target.value)}
                                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
                                     placeholder="4350"
+                                  />
+                                </div>
+                                <div className="md:col-span-2 space-y-2">
+                                  <label className="block text-sm font-semibold text-gray-700">
+                                    Country *
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={quoteFormData.propertyDetails.country}
+                                    onChange={(e) => updateFormData('propertyDetails', 'country', e.target.value)}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
+                                    placeholder="Australia"
                                   />
                                 </div>
                               </div>
@@ -2120,7 +2241,7 @@ const App = () => {
                               </label>
                               <div className="relative bg-gray-100 rounded-xl overflow-hidden border border-gray-300 h-64">
                                 <iframe
-                                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57337.99327706676!2d151.9269271!3d-27.5627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b96b2d55e8bf5c5%3A0x5017d681632ccc0!2sToowoomba%20QLD%2C%20Australia!5e0!3m2!1sen!2sau!4v1699000000000!5m2!1sen!2sau"
+                                  src={getGoogleMapsUrl()}
                                   width="100%"
                                   height="100%"
                                   style={{ border: 0 }}
@@ -2469,16 +2590,34 @@ const App = () => {
                             <span className="font-medium text-gray-800">Postcode:</span>
                             <span>{quoteFormData.propertyDetails.postcode}</span>
                           </div>
-                          {quoteFormData.propertyDetails.address && (
+                          {quoteFormData.propertyDetails.streetAddress && (
                             <div className="flex items-center space-x-2 sm:col-span-2">
-                              <span className="font-medium text-gray-800">Address:</span>
-                              <span>{quoteFormData.propertyDetails.address}</span>
+                              <span className="font-medium text-gray-800">Street Address:</span>
+                              <span>{quoteFormData.propertyDetails.streetAddress}</span>
                             </div>
                           )}
                           {quoteFormData.propertyDetails.suburb && (
                             <div className="flex items-center space-x-2">
                               <span className="font-medium text-gray-800">Suburb:</span>
                               <span>{quoteFormData.propertyDetails.suburb}</span>
+                            </div>
+                          )}
+                          {quoteFormData.propertyDetails.state && (
+                            <div className="flex items-center space-x-2">
+                              <span className="font-medium text-gray-800">State:</span>
+                              <span>{quoteFormData.propertyDetails.state}</span>
+                            </div>
+                          )}
+                          {quoteFormData.propertyDetails.postcode && (
+                            <div className="flex items-center space-x-2">
+                              <span className="font-medium text-gray-800">Postcode:</span>
+                              <span>{quoteFormData.propertyDetails.postcode}</span>
+                            </div>
+                          )}
+                          {quoteFormData.propertyDetails.country && (
+                            <div className="flex items-center space-x-2 sm:col-span-2">
+                              <span className="font-medium text-gray-800">Country:</span>
+                              <span>{quoteFormData.propertyDetails.country}</span>
                             </div>
                           )}
                           {quoteFormData.propertyDetails.specialRequirements && (
