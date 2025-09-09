@@ -2218,11 +2218,13 @@ const App = () => {
                                 </div>
                               </div>
                               
-                              {/* GPS Location Button */}
+                              {/* GPS Location Button with conditional popover */}
                               <div className="mt-2">
                                 <button
                                   type="button"
-                                  onClick={getCurrentLocation}
+                                  onClick={() => {
+                                    getCurrentLocation();
+                                  }}
                                   className="flex items-center space-x-2 text-sm text-red-600 hover:text-red-700 font-medium"
                                 >
                                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2231,6 +2233,25 @@ const App = () => {
                                   </svg>
                                   <span>Use current location</span>
                                 </button>
+                                {/* Conditional popover - shows when address fields are empty */}
+                                {(!quoteFormData.propertyDetails.streetAddress && 
+                                  !quoteFormData.propertyDetails.suburb && 
+                                  !quoteFormData.propertyDetails.state && 
+                                  !quoteFormData.propertyDetails.postcode && 
+                                  !quoteFormData.propertyDetails.country) && (
+                                  <div className="mt-2 p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
+                                    <div className="flex items-start">
+                                      <div className="flex-shrink-0 mt-0.5">
+                                        <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                      </div>
+                                      <div className="ml-2">
+                                        <p className="text-xs text-gray-600">Click to automatically fill your address</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
                               </div>
                             </div>
                                                     
