@@ -796,7 +796,7 @@ const App = () => {
                 <svg className="w-4 h-4 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
-                04 7871 1829
+                0478 711 829
               </span>
               <span className="flex items-center">
                 <svg className="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -949,9 +949,9 @@ const App = () => {
                 <span className="ml-1 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
               </button>
 
-              <a href="tel:0478711829">
+              <a href="tel:0478 711 829">
                 <button className="px-8 sm:px-10 py-3 sm:py-4 bg-white border-2 border-red-300 text-red-700 rounded-xl font-semibold text-base sm:text-lg hover:bg-red-50 hover:border-red-400 transition-all duration-300 shadow-md hover:shadow-lg">
-                  Call 04 7871 1829
+                  Call 0478 711 829
                 </button>
               </a>
             </div>
@@ -1497,9 +1497,9 @@ const App = () => {
               Get Free Quote Now
             </button>
 
-            <a href="tel:0478711829" aria-label="Call Ilovah Cleaning Services at 04 7871 1829">
+            <a href="tel:0478 711 829" aria-label="Call Ilovah Cleaning Services at 0478 711 829">
               <button className="px-8 sm:px-12 py-3 sm:py-4 border-2 border-white text-white rounded-xl font-bold text-base sm:text-lg hover:bg-white hover:text-red-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                Call 04 7871 1829
+                Call 0478 711 829
               </button>
             </a>
 
@@ -1587,7 +1587,7 @@ const App = () => {
                     <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
                       <path fillRule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clipRule="evenodd" />
                     </svg>
-                    <a href="tel:0478711829" className="hover:text-red-400 transition-colors duration-300">04 7871 1829</a>
+                    <a href="tel:0478 711 829" className="hover:text-red-400 transition-colors duration-300">0478 711 829</a>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                     <svg className="w-5 h-5 text-red-500 flex-shrink-0 mx-auto sm:mx-0" fill="currentColor" viewBox="0 0 24 24">
@@ -1998,7 +1998,7 @@ const App = () => {
                             value={quoteFormData.contactInfo.phone}
                             onChange={(e) => updateFormData('contactInfo', 'phone', e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 text-gray-800"
-                            placeholder="04 1234 5678"
+                            placeholder="0478 711 829"
                           />
                         </div>
                       </div>

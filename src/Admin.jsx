@@ -166,7 +166,7 @@ const Admin = () => {
         service: "End of Lease Cleaning", 
         date: "Dec 8, 2024 2:00 PM", 
         status: "confirmed", 
-        phone: "0412 345 678",
+        phone: "0478 711 829",
         email: "sarah.j@email.com",
         address: "123 Main St, Toowoomba QLD 4350",
         duration: "4-6 hours",
@@ -181,7 +181,7 @@ const Admin = () => {
         service: "Carpet Cleaning", 
         date: "Dec 9, 2024 10:00 AM", 
         status: "pending", 
-        phone: "0423 456 789",
+        phone: "0478 711 829",
         email: "m.lee@email.com",
         address: "456 Oak Ave, Middle Ridge QLD 4350",
         duration: "2-3 hours",
@@ -196,7 +196,7 @@ const Admin = () => {
         service: "Window Cleaning", 
         date: "Dec 10, 2024 3:00 PM", 
         status: "completed", 
-        phone: "0434 567 890",
+        phone: "0478 711 829",
         email: "emily.white@email.com",
         address: "789 Pine Rd, North Toowoomba QLD 4350",
         duration: "1-2 hours",
@@ -211,7 +211,7 @@ const Admin = () => {
         service: "Pressure Washing", 
         date: "Dec 11, 2024 9:00 AM", 
         status: "confirmed", 
-        phone: "0445 678 901",
+        phone: "0478 711 829",
         email: "d.chen@email.com",
         address: "321 Elm St, Hodgson Vale QLD 4350",
         duration: "3-4 hours",
@@ -226,7 +226,7 @@ const Admin = () => {
         service: "Gutter Cleaning", 
         date: "Dec 12, 2024 1:00 PM", 
         status: "pending", 
-        phone: "0456 789 012",
+        phone: "0478 711 829",
         email: "lisa.r@email.com",
         address: "654 Birch Ave, Rangeville QLD 4350",
         duration: "2-3 hours",
@@ -241,7 +241,7 @@ const Admin = () => {
         service: "End of Lease Cleaning", 
         date: "Dec 13, 2024 8:00 AM", 
         status: "confirmed", 
-        phone: "0467 890 123",
+        phone: "0478 711 829",
         email: "james.w@email.com",
         address: "987 Cedar Ln, East Toowoomba QLD 4350",
         duration: "5-7 hours",
@@ -1004,10 +1004,10 @@ const Admin = () => {
               </div>
               <div className="divide-y divide-gray-100">
                 {[
-                  { id: 1, name: "Sarah Johnson", email: "sarah.j@email.com", phone: "0412 345 678", address: "123 Main St, Toowoomba", bookings: 5, lastService: "Nov 15, 2024", totalSpent: "$1,250", status: "active" },
-                  { id: 2, name: "Michael Lee", email: "m.lee@email.com", phone: "0423 456 789", address: "456 Oak Ave, Middle Ridge", bookings: 3, lastService: "Dec 1, 2024", totalSpent: "$780", status: "active" },
-                  { id: 3, name: "Emily White", email: "emily.white@email.com", phone: "0434 567 890", address: "789 Pine Rd, North Toowoomba", bookings: 8, lastService: "Dec 5, 2024", totalSpent: "$2,150", status: "vip" },
-                  { id: 4, name: "David Chen", email: "d.chen@email.com", phone: "0445 678 901", address: "321 Elm St, Hodgson Vale", bookings: 2, lastService: "Oct 20, 2024", totalSpent: "$540", status: "inactive" }
+                  { id: 1, name: "Sarah Johnson", email: "sarah.j@email.com", phone: "0478 711 829", address: "123 Main St, Toowoomba", bookings: 5, lastService: "Nov 15, 2024", totalSpent: "$1,250", status: "active" },
+                  { id: 2, name: "Michael Lee", email: "m.lee@email.com", phone: "0478 711 829", address: "456 Oak Ave, Middle Ridge", bookings: 3, lastService: "Dec 1, 2024", totalSpent: "$780", status: "active" },
+                  { id: 3, name: "Emily White", email: "emily.white@email.com", phone: "0478 711 829", address: "789 Pine Rd, North Toowoomba", bookings: 8, lastService: "Dec 5, 2024", totalSpent: "$2,150", status: "vip" },
+                  { id: 4, name: "David Chen", email: "d.chen@email.com", phone: "0478 711 829", address: "321 Elm St, Hodgson Vale", bookings: 2, lastService: "Oct 20, 2024", totalSpent: "$540", status: "inactive" }
                 ].map((customer) => (
                   <div key={customer.id} className="p-4 md:p-6 hover:bg-gray-50 transition-colors duration-200">
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
@@ -1532,10 +1532,10 @@ const Admin = () => {
               </div>
               <div className="divide-y divide-gray-200">
                 {[
-                  { name: "Jessica Chen", position: "Cleaning Specialist", experience: "3 years", applied: "Dec 5, 2024", status: "new", email: "jessica.chen@email.com", phone: "0412 123 456" },
-                  { name: "Mark Thompson", position: "Carpet Cleaning Technician", experience: "5 years", applied: "Dec 3, 2024", status: "review", email: "mark.t@email.com", phone: "0423 234 567" },
-                  { name: "Lisa Rodriguez", position: "Team Leader", experience: "7 years", applied: "Dec 1, 2024", status: "interview", email: "lisa.r@email.com", phone: "0434 345 678" },
-                  { name: "James Wilson", position: "Cleaning Specialist", experience: "2 years", applied: "Nov 28, 2024", status: "hired", email: "james.w@email.com", phone: "0445 456 789" }
+                  { name: "Jessica Chen", position: "Cleaning Specialist", experience: "3 years", applied: "Dec 5, 2024", status: "new", email: "jessica.chen@email.com", phone: "0478 711 829" },
+                  { name: "Mark Thompson", position: "Carpet Cleaning Technician", experience: "5 years", applied: "Dec 3, 2024", status: "review", email: "mark.t@email.com", phone: "0478 711 829" },
+                  { name: "Lisa Rodriguez", position: "Team Leader", experience: "7 years", applied: "Dec 1, 2024", status: "interview", email: "lisa.r@email.com", phone: "0478 711 829" },
+                  { name: "James Wilson", position: "Cleaning Specialist", experience: "2 years", applied: "Nov 28, 2024", status: "hired", email: "james.w@email.com", phone: "0478 711 829" }
                 ].map((applicant, index) => (
                   <div key={index} className="p-4 md:p-6 hover:bg-gray-50">
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-3 lg:space-y-0">
@@ -1729,7 +1729,7 @@ const Admin = () => {
                     <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                     <input 
                       type="text" 
-                      value="04 7871 1829"
+                      value="0478 711 829"
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-sm"
                     />
                   </div>
