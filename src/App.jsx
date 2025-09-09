@@ -515,16 +515,8 @@ const App = () => {
       answer: "Yes! We offer a 100% bond back guarantee for our end of lease cleaning service. If your property manager identifies any cleaning issues during the final inspection, we'll return to fix them at no additional cost."
     },
     {
-      question: "What cleaning products do you use? Are they safe?",
-      answer: "We use professional-grade, eco-friendly cleaning products that are safe for children, pets, and the environment. All our products are non-toxic and biodegradable while still providing superior cleaning results."
-    },
-    {
       question: "How far in advance should I book your services?",
       answer: "We recommend booking at least 1-2 weeks in advance, especially during busy periods like end of month for lease cleanings. However, we do our best to accommodate urgent requests when possible."
-    },
-    {
-      question: "Are you insured and what happens if something gets damaged?",
-      answer: "Yes, we are fully insured with comprehensive public liability coverage. In the unlikely event of damage, our insurance will cover the cost of repair or replacement. We take every precaution to protect your property."
     },
     {
       question: "Do I need to provide cleaning supplies and equipment?",
@@ -532,7 +524,7 @@ const App = () => {
     },
     {
       question: "What areas do you service?",
-      answer: "We service Toowoomba and surrounding areas including North Toowoomba, Middle Ridge, Hodgson Vale, Helidon, and nearby suburbs. Contact us to confirm if we service your specific location."
+      answer: "We proudly service Toowoomba and surrounding areas, including nearby towns and suburbs. Contact us to check availability in your location."
     },
     {
       question: "How long does a typical cleaning service take?",
@@ -541,6 +533,18 @@ const App = () => {
     {
       question: "Can I be present during the cleaning?",
       answer: "You're welcome to be present, but it's not necessary. Many of our clients prefer to leave us to work while they're at work or running errands. We're fully trustworthy and professional."
+    },
+    {
+      question: "How do I book a cleaning service?",
+      answer: "You can book online through our website, send us a message on Facebook, or give us a call. Once confirmed, you'll receive an SMS notification with your booking details."
+    },
+    {
+      question: "Do you provide free quotes?",
+      answer: "Yes! We offer free, no-obligation quotes for all our services. Simply let us know what you need, and we'll provide a tailored estimate."
+    },
+    {
+      question: "Do you offer a satisfaction guarantee?",
+      answer: "Absolutely. We stand by the quality of our work. If you're not completely satisfied, let us know, and we'll make it right."
     }
   ]
 
@@ -1453,7 +1457,7 @@ const App = () => {
               
               {/* Social Media Links */}
               <div className="flex justify-center sm:justify-start space-x-4 mb-6">
-                <a href="https://facebook.com/ilovahcleaning" target="_blank" rel="noopener noreferrer" className="group text-gray-400 hover:text-blue-500 transition-all duration-300 transform hover:scale-110" aria-label="Follow us on Facebook">
+                <a href="https://www.facebook.com/people/i-LovahCleaning-Services/61558661136011/" target="_blank" rel="noopener noreferrer" className="group text-gray-400 hover:text-blue-500 transition-all duration-300 transform hover:scale-110" aria-label="Follow us on Facebook">
                   <svg className="w-7 h-7 group-hover:drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                   </svg>

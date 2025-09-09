@@ -9,6 +9,15 @@ const Admin = () => {
   const [draggedOverIndex, setDraggedOverIndex] = useState(null)
   const [editingService, setEditingService] = useState(null)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(null)
+  const [selectedBooking, setSelectedBooking] = useState(null)
+  const [showBookingDetails, setShowBookingDetails] = useState(false)
+  const [selectedCustomer, setSelectedCustomer] = useState(null)
+  const [showCustomerDetails, setShowCustomerDetails] = useState(false)
+  const [sortField, setSortField] = useState('date')
+  const [sortDirection, setSortDirection] = useState('asc')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(5)
   const [services, setServices] = useState([
     { 
       id: 1,
@@ -146,6 +155,177 @@ const Admin = () => {
 
   const handleCancelEdit = () => {
     setEditingService(null)
+  }
+
+  // Enhanced booking data with more details
+  const getAllBookings = () => {
+    return [
+      { 
+        id: 1, 
+        customer: "Sarah Johnson", 
+        service: "End of Lease Cleaning", 
+        date: "Dec 8, 2024 2:00 PM", 
+        status: "confirmed", 
+        phone: "0412 345 678",
+        email: "sarah.j@email.com",
+        address: "123 Main St, Toowoomba QLD 4350",
+        duration: "4-6 hours",
+        total: "320",
+        paymentMethod: "Credit Card",
+        paymentStatus: "paid",
+        notes: "Please ensure all carpets are steam cleaned. Access via side gate."
+      },
+      { 
+        id: 2, 
+        customer: "Michael Lee", 
+        service: "Carpet Cleaning", 
+        date: "Dec 9, 2024 10:00 AM", 
+        status: "pending", 
+        phone: "0423 456 789",
+        email: "m.lee@email.com",
+        address: "456 Oak Ave, Middle Ridge QLD 4350",
+        duration: "2-3 hours",
+        total: "165",
+        paymentMethod: "Bank Transfer",
+        paymentStatus: "pending",
+        notes: "Three bedrooms and living area. Pet stains in master bedroom."
+      },
+      { 
+        id: 3, 
+        customer: "Emily White", 
+        service: "Window Cleaning", 
+        date: "Dec 10, 2024 3:00 PM", 
+        status: "completed", 
+        phone: "0434 567 890",
+        email: "emily.white@email.com",
+        address: "789 Pine Rd, North Toowoomba QLD 4350",
+        duration: "1-2 hours",
+        total: "95",
+        paymentMethod: "Cash",
+        paymentStatus: "paid",
+        notes: "Two-story house. All windows inside and out."
+      },
+      { 
+        id: 4, 
+        customer: "David Chen", 
+        service: "Pressure Washing", 
+        date: "Dec 11, 2024 9:00 AM", 
+        status: "confirmed", 
+        phone: "0445 678 901",
+        email: "d.chen@email.com",
+        address: "321 Elm St, Hodgson Vale QLD 4350",
+        duration: "3-4 hours",
+        total: "240",
+        paymentMethod: "Credit Card",
+        paymentStatus: "paid",
+        notes: "Driveway, patio, and exterior walls. Remove oil stains from driveway."
+      },
+      { 
+        id: 5, 
+        customer: "Lisa Rodriguez", 
+        service: "Gutter Cleaning", 
+        date: "Dec 12, 2024 1:00 PM", 
+        status: "pending", 
+        phone: "0456 789 012",
+        email: "lisa.r@email.com",
+        address: "654 Birch Ave, Rangeville QLD 4350",
+        duration: "2-3 hours",
+        total: "140",
+        paymentMethod: "Bank Transfer",
+        paymentStatus: "pending",
+        notes: "Single-story house. Check for any damage or blockages."
+      },
+      { 
+        id: 6, 
+        customer: "James Wilson", 
+        service: "End of Lease Cleaning", 
+        date: "Dec 13, 2024 8:00 AM", 
+        status: "confirmed", 
+        phone: "0467 890 123",
+        email: "james.w@email.com",
+        address: "987 Cedar Ln, East Toowoomba QLD 4350",
+        duration: "5-7 hours",
+        total: "380",
+        paymentMethod: "Credit Card",
+        paymentStatus: "paid",
+        notes: "Full apartment clean. Bond return required. Includes oven and carpet cleaning."
+      }
+    ]
+  }
+
+  // Sorting function
+  const handleSort = (field) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortField(field)
+      setSortDirection('asc')
+    }
+  }
+
+  // Get filtered and sorted bookings
+  const getFilteredBookings = () => {
+    let bookings = getAllBookings()
+    
+    // Filter by search term
+    if (searchTerm) {
+      bookings = bookings.filter(booking => 
+        booking.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        booking.service.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        booking.phone.includes(searchTerm) ||
+        booking.email.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    }
+    
+    // Sort bookings
+    bookings.sort((a, b) => {
+      let aValue, bValue
+      
+      switch (sortField) {
+        case 'customer':
+          aValue = a.customer.toLowerCase()
+          bValue = b.customer.toLowerCase()
+          break
+        case 'service':
+          aValue = a.service.toLowerCase()
+          bValue = b.service.toLowerCase()
+          break
+        case 'date':
+          aValue = new Date(a.date).getTime()
+          bValue = new Date(b.date).getTime()
+          break
+        default:
+          return 0
+      }
+      
+      if (sortDirection === 'asc') {
+        return aValue > bValue ? 1 : -1
+      } else {
+        return aValue < bValue ? 1 : -1
+      }
+    })
+    
+    return bookings
+  }
+
+  // Get current page bookings
+  const getCurrentPageBookings = () => {
+    const filteredBookings = getFilteredBookings()
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    return filteredBookings.slice(startIndex, endIndex)
+  }
+
+  // Handle view booking details
+  const handleViewBookingDetails = (booking) => {
+    setSelectedBooking(booking)
+    setShowBookingDetails(true)
+  }
+
+  // Handle view customer details
+  const handleViewCustomerDetails = (customer) => {
+    setSelectedCustomer(customer)
+    setShowCustomerDetails(true)
   }
 
   const menuItems = [
@@ -332,56 +512,443 @@ const Admin = () => {
               </div>
             </div>
 
-            {/* Bookings Table */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h3 className="text-lg font-medium text-gray-900">Recent Bookings</h3>
+            {/* Search and Filter Bar */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4">
+              <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 sm:space-x-4">
+                <div className="flex-1 max-w-md">
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="block w-full pl-9 sm:pl-10 pr-3 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm sm:text-base"
+                      placeholder="Search bookings..."
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3">
+                  <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                  </select>
+                  <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                    <option value="all">All Services</option>
+                    <option value="end-of-lease">End of Lease</option>
+                    <option value="carpet">Carpet</option>
+                    <option value="window">Window</option>
+                  </select>
+                </div>
               </div>
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+            </div>
+
+            {/* Modern Bookings Table */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <div className="px-3 sm:px-6 py-3 sm:py-4 border-b border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900">Bookings Management</h3>
+                  <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-500">
+                    <span className="hidden sm:inline">Showing</span>
+                    <span>{getCurrentPageBookings().length}/{getAllBookings().length}</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Mobile Card View */}
+              <div className="block lg:hidden">
+                <div className="divide-y divide-gray-100">
+                  {getCurrentPageBookings().map((booking) => (
+                    <div key={booking.id} className="p-4 hover:bg-gray-50 transition-colors duration-200">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-red-600 font-semibold text-sm">
+                            {booking.customer.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-900 truncate">{booking.customer}</h4>
+                              <p className="text-xs text-gray-500">{booking.phone}</p>
+                            </div>
+                            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                              booking.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800' :
+                              booking.status === 'pending' ? 'bg-amber-100 text-amber-800' :
+                              booking.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                              'bg-red-100 text-red-800'
+                            }`}>
+                              <div className={`w-1 h-1 rounded-full mr-1 ${
+                                booking.status === 'confirmed' ? 'bg-emerald-600' :
+                                booking.status === 'pending' ? 'bg-amber-600' :
+                                booking.status === 'completed' ? 'bg-blue-600' :
+                                'bg-red-600'
+                              }`}></div>
+                              {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                            </span>
+                          </div>
+                          
+                          <div className="space-y-1 mb-3">
+                            <p className="text-sm text-gray-900">{booking.service}</p>
+                            <p className="text-xs text-gray-500">{booking.date}</p>
+                            <p className="text-sm font-semibold text-gray-900">${booking.total}</p>
+                          </div>
+                          
+                          <button
+                            onClick={() => handleViewBookingDetails(booking)}
+                            className="w-full inline-flex items-center justify-center px-3 py-2 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
+                          >
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            View Details
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Desktop Table View */}
+              <div className="hidden lg:block overflow-x-auto">
+                <table className="min-w-full">
+                  <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-4 text-left">
+                        <button 
+                          onClick={() => handleSort('customer')}
+                          className="flex items-center space-x-1 text-xs font-semibold text-gray-600 uppercase tracking-wider hover:text-gray-900 transition-colors"
+                        >
+                          <span>Customer</span>
+                          <svg className={`w-4 h-4 transform transition-transform ${
+                            sortField === 'customer' && sortDirection === 'asc' ? 'rotate-180' : ''
+                          }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                      </th>
+                      <th className="px-6 py-4 text-left">
+                        <button 
+                          onClick={() => handleSort('service')}
+                          className="flex items-center space-x-1 text-xs font-semibold text-gray-600 uppercase tracking-wider hover:text-gray-900 transition-colors"
+                        >
+                          <span>Service</span>
+                          <svg className={`w-4 h-4 transform transition-transform ${
+                            sortField === 'service' && sortDirection === 'asc' ? 'rotate-180' : ''
+                          }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                      </th>
+                      <th className="px-6 py-4 text-left">
+                        <button 
+                          onClick={() => handleSort('date')}
+                          className="flex items-center space-x-1 text-xs font-semibold text-gray-600 uppercase tracking-wider hover:text-gray-900 transition-colors"
+                        >
+                          <span>Date & Time</span>
+                          <svg className={`w-4 h-4 transform transition-transform ${
+                            sortField === 'date' && sortDirection === 'asc' ? 'rotate-180' : ''
+                          }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                      </th>
+                      <th className="px-6 py-4 text-left">
+                        <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</span>
+                      </th>
+                      <th className="px-6 py-4 text-left">
+                        <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</span>
+                      </th>
+                      <th className="px-6 py-4 text-right">
+                        <span className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</span>
+                      </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {[
-                      { id: 1, customer: "Sarah Johnson", service: "End of Lease Cleaning", date: "Dec 8, 2024 2:00 PM", status: "confirmed", phone: "0412 345 678" },
-                      { id: 2, customer: "Michael Lee", service: "Carpet Cleaning", date: "Dec 9, 2024 10:00 AM", status: "pending", phone: "0423 456 789" },
-                      { id: 3, customer: "Emily White", service: "Window Cleaning", date: "Dec 10, 2024 3:00 PM", status: "completed", phone: "0434 567 890" }
-                    ].map((booking) => (
-                      <tr key={booking.id}>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">{booking.customer}</div>
-                            <div className="text-sm text-gray-500">{booking.phone}</div>
+                  <tbody className="bg-white divide-y divide-gray-100">
+                    {getCurrentPageBookings().map((booking) => (
+                      <tr key={booking.id} className="hover:bg-gray-50 transition-colors duration-200">
+                        <td className="px-6 py-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center">
+                              <span className="text-red-600 font-semibold text-sm">
+                                {booking.customer.split(' ').map(n => n[0]).join('')}
+                              </span>
+                            </div>
+                            <div>
+                              <div className="text-sm font-semibold text-gray-900">{booking.customer}</div>
+                              <div className="text-sm text-gray-500">{booking.phone}</div>
+                              <div className="text-xs text-gray-400">{booking.email}</div>
+                            </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{booking.service}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{booking.date}</td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                            booking.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                            booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-blue-100 text-blue-800'
+                        <td className="px-6 py-4">
+                          <div>
+                            <div className="text-sm font-medium text-gray-900">{booking.service}</div>
+                            <div className="text-xs text-gray-500">{booking.address}</div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div>
+                            <div className="text-sm font-medium text-gray-900">{booking.date}</div>
+                            <div className="text-xs text-gray-500">{booking.duration}</div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
+                            booking.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800 ring-1 ring-emerald-600/20' :
+                            booking.status === 'pending' ? 'bg-amber-100 text-amber-800 ring-1 ring-amber-600/20' :
+                            booking.status === 'completed' ? 'bg-blue-100 text-blue-800 ring-1 ring-blue-600/20' :
+                            'bg-red-100 text-red-800 ring-1 ring-red-600/20'
                           }`}>
-                            {booking.status}
+                            <div className={`w-1.5 h-1.5 rounded-full mr-2 ${
+                              booking.status === 'confirmed' ? 'bg-emerald-600' :
+                              booking.status === 'pending' ? 'bg-amber-600' :
+                              booking.status === 'completed' ? 'bg-blue-600' :
+                              'bg-red-600'
+                            }`}></div>
+                            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <button className="text-red-600 hover:text-red-900 mr-3">Edit</button>
-                          <button className="text-gray-600 hover:text-gray-900">View</button>
+                        <td className="px-6 py-4">
+                          <div className="text-sm font-semibold text-gray-900">${booking.total}</div>
+                          <div className="text-xs text-gray-500">{booking.paymentMethod}</div>
+                        </td>
+                        <td className="px-6 py-4 text-right">
+                          <div className="flex items-center justify-end space-x-2">
+                            <button
+                              onClick={() => handleViewBookingDetails(booking)}
+                              className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
+                            >
+                              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                              </svg>
+                              <span className="hidden xl:inline">View Details</span>
+                              <span className="xl:hidden">View</span>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
+              
+              {/* Pagination */}
+              <div className="px-3 sm:px-6 py-3 sm:py-4 border-t border-gray-200 bg-gray-50">
+                <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+                  <div className="flex items-center justify-center sm:justify-start">
+                    <span className="text-xs sm:text-sm text-gray-700">
+                      Page {currentPage} of {Math.ceil(getAllBookings().length / itemsPerPage)}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-center space-x-2">
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1}
+                      className="px-3 py-1.5 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                    >
+                      <span className="hidden sm:inline">Previous</span>
+                      <span className="sm:hidden">Prev</span>
+                    </button>
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(getAllBookings().length / itemsPerPage)))}
+                      disabled={currentPage === Math.ceil(getAllBookings().length / itemsPerPage)}
+                      className="px-3 py-1.5 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors touch-manipulation"
+                    >
+                      <span className="hidden sm:inline">Next</span>
+                      <span className="sm:hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Booking Details Modal */}
+            {showBookingDetails && selectedBooking && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                  <div className="sticky top-0 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 px-6 py-4 rounded-t-xl">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xl font-bold text-gray-900">Booking Details</h3>
+                      <button
+                        onClick={() => setShowBookingDetails(false)}
+                        className="p-2 hover:bg-gray-200 rounded-lg transition-all duration-200 hover:text-gray-700"
+                      >
+                        <svg className="w-5 h-5 text-gray-500 hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 space-y-6">
+                    {/* Customer Information */}
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                      <h4 className="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Customer Information</h4>
+                      
+                      {/* Contact Actions */}
+                      <div className="bg-white rounded-lg p-4 mb-4 border border-gray-200">
+                        <h5 className="text-sm font-medium text-gray-700 mb-3 text-center">Quick Contact</h5>
+                        <div className="flex justify-center space-x-4">
+                          <button 
+                            onClick={() => window.open(`tel:${selectedBooking.phone}`)}
+                            className="flex flex-col items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-2xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                          >
+                            <svg className="w-6 h-6 text-white mb-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            <span className="text-xs font-semibold text-white">Call</span>
+                          </button>
+                          
+                          <button 
+                            onClick={() => window.open(`sms:${selectedBooking.phone}`)}
+                            className="flex flex-col items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                          >
+                            <svg className="w-6 h-6 text-white mb-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            <span className="text-xs font-semibold text-white">SMS</span>
+                          </button>
+                          
+                          <button 
+                            onClick={() => window.open(`mailto:${selectedBooking.email}`)}
+                            className="flex flex-col items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 rounded-2xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                          >
+                            <svg className="w-6 h-6 text-white mb-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span className="text-xs font-semibold text-white">Email</span>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                          <p className="text-sm text-gray-900">{selectedBooking.customer}</p>
+                        </div>
+                        <div className="relative">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                          <div className="flex items-center justify-between bg-white rounded-lg border border-gray-200 px-3 py-2">
+                            <div className="flex items-center space-x-2">
+                              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                              </svg>
+                              <p className="text-sm text-gray-900">{selectedBooking.phone}</p>
+                            </div>
+                            <button 
+                              onClick={() => navigator.clipboard.writeText(selectedBooking.phone)}
+                              className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                        </div>
+                        <div className="relative">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                          <div className="flex items-center justify-between bg-white rounded-lg border border-gray-200 px-3 py-2">
+                            <div className="flex items-center space-x-2">
+                              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                              <p className="text-sm text-gray-900 truncate">{selectedBooking.email}</p>
+                            </div>
+                            <button 
+                              onClick={() => navigator.clipboard.writeText(selectedBooking.email)}
+                              className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow flex-shrink-0"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                        </div>
+                        <div className="relative">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                          <div className="flex items-start justify-between bg-white rounded-lg border border-gray-200 px-3 py-2">
+                            <div className="flex items-start space-x-2 flex-1">
+                              <svg className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              <p className="text-sm text-gray-900">{selectedBooking.address}</p>
+                            </div>
+                            <button 
+                              onClick={() => navigator.clipboard.writeText(selectedBooking.address)}
+                              className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow flex-shrink-0 ml-2"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Service Information */}
+                    <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                      <h4 className="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-blue-200">Service Details</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
+                          <p className="text-sm text-gray-900">{selectedBooking.service}</p>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+                          <p className="text-sm text-gray-900">{selectedBooking.duration}</p>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Date & Time</label>
+                          <p className="text-sm text-gray-900">{selectedBooking.date}</p>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
+                            selectedBooking.status === 'confirmed' ? 'bg-emerald-100 text-emerald-800' :
+                            selectedBooking.status === 'pending' ? 'bg-amber-100 text-amber-800' :
+                            selectedBooking.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {selectedBooking.status.charAt(0).toUpperCase() + selectedBooking.status.slice(1)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {selectedBooking.notes && (
+                      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <h4 className="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Notes</h4>
+                        <div className="grid grid-cols-1 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Additional Notes</label>
+                            <p className="text-sm text-gray-900 bg-white p-3 rounded border">{selectedBooking.notes}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+                      <button className="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-3 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
+                        Edit Booking
+                      </button>
+                      <button className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
+                        Send Message
+                      </button>
+                      <button className="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white px-4 py-3 rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
+                        Print Invoice
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )
       case 'customers':
@@ -415,54 +982,109 @@ const Admin = () => {
 
             {/* Search Bar */}
             <div className="bg-white p-3 md:p-4 rounded-lg border border-gray-200">
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              <div className="flex flex-row gap-3 md:gap-4">
                 <input
                   type="text"
                   placeholder="Search customers..."
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-sm"
                 />
-                <button className="bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm whitespace-nowrap">
+                <button className="bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors text-sm whitespace-nowrap flex-shrink-0">
                   Search
                 </button>
               </div>
             </div>
 
-            {/* Customer List */}
+            {/* Modern Customer List */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-              <div className="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200">
-                <h3 className="text-base md:text-lg font-medium text-gray-900">Customer Directory</h3>
+              <div className="px-4 md:px-6 py-3 md:py-4 border-b border-gray-200 bg-gray-50">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-base md:text-lg font-semibold text-gray-900">Customer Directory</h3>
+                  <span className="text-sm text-gray-500">4 customers</span>
+                </div>
               </div>
-              <div className="divide-y divide-gray-200">
+              <div className="divide-y divide-gray-100">
                 {[
-                  { name: "Sarah Johnson", email: "sarah.j@email.com", phone: "0412 345 678", address: "123 Main St, Toowoomba", bookings: 5, lastService: "Nov 15, 2024" },
-                  { name: "Michael Lee", email: "m.lee@email.com", phone: "0423 456 789", address: "456 Oak Ave, Middle Ridge", bookings: 3, lastService: "Dec 1, 2024" },
-                  { name: "Emily White", email: "emily.white@email.com", phone: "0434 567 890", address: "789 Pine Rd, North Toowoomba", bookings: 8, lastService: "Dec 5, 2024" },
-                  { name: "David Chen", email: "d.chen@email.com", phone: "0445 678 901", address: "321 Elm St, Hodgson Vale", bookings: 2, lastService: "Oct 20, 2024" }
-                ].map((customer, index) => (
-                  <div key={index} className="p-4 md:p-6 hover:bg-gray-50">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+                  { id: 1, name: "Sarah Johnson", email: "sarah.j@email.com", phone: "0412 345 678", address: "123 Main St, Toowoomba", bookings: 5, lastService: "Nov 15, 2024", totalSpent: "$1,250", status: "active" },
+                  { id: 2, name: "Michael Lee", email: "m.lee@email.com", phone: "0423 456 789", address: "456 Oak Ave, Middle Ridge", bookings: 3, lastService: "Dec 1, 2024", totalSpent: "$780", status: "active" },
+                  { id: 3, name: "Emily White", email: "emily.white@email.com", phone: "0434 567 890", address: "789 Pine Rd, North Toowoomba", bookings: 8, lastService: "Dec 5, 2024", totalSpent: "$2,150", status: "vip" },
+                  { id: 4, name: "David Chen", email: "d.chen@email.com", phone: "0445 678 901", address: "321 Elm St, Hodgson Vale", bookings: 2, lastService: "Oct 20, 2024", totalSpent: "$540", status: "inactive" }
+                ].map((customer) => (
+                  <div key={customer.id} className="p-4 md:p-6 hover:bg-gray-50 transition-colors duration-200">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
                       <div className="flex-1">
-                        <div className="flex items-start space-x-3">
-                          <div className="w-8 h-8 md:w-10 md:h-10 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                            <span className="text-red-600 font-medium text-sm md:text-base">{customer.name.charAt(0)}</span>
+                        <div className="flex items-start space-x-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span className="text-red-600 font-semibold text-base">{customer.name.charAt(0)}</span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="text-base md:text-lg font-medium text-gray-900 truncate">{customer.name}</h4>
-                            <div className="text-xs md:text-sm text-gray-600 space-y-1">
-                              <p className="truncate">{customer.email} • {customer.phone}</p>
-                              <p className="truncate">{customer.address}</p>
+                            <div className="flex items-center space-x-2 mb-1">
+                              <h4 className="text-base md:text-lg font-semibold text-gray-900 truncate">{customer.name}</h4>
+                              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                                customer.status === 'vip' ? 'bg-purple-100 text-purple-800 ring-1 ring-purple-600/20' :
+                                customer.status === 'active' ? 'bg-emerald-100 text-emerald-800 ring-1 ring-emerald-600/20' :
+                                'bg-gray-100 text-gray-800 ring-1 ring-gray-600/20'
+                              }`}>
+                                {customer.status === 'vip' ? '⭐ VIP' : customer.status.toUpperCase()}
+                              </span>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-600">
+                              <p className="flex items-center">
+                                <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                {customer.email}
+                              </p>
+                              <p className="flex items-center">
+                                <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                </svg>
+                                {customer.phone}
+                              </p>
+                              <p className="flex items-center md:col-span-2">
+                                <svg className="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                {customer.address}
+                              </p>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-col sm:items-end space-y-2">
-                        <div className="text-xs md:text-sm text-gray-600">
-                          <p><span className="font-medium">{customer.bookings}</span> bookings</p>
-                          <p>Last: {customer.lastService}</p>
+                      
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                        <div className="grid grid-cols-3 gap-4 text-center">
+                          <div>
+                            <p className="text-lg font-semibold text-gray-900">{customer.bookings}</p>
+                            <p className="text-xs text-gray-500">Bookings</p>
+                          </div>
+                          <div>
+                            <p className="text-lg font-semibold text-green-600">{customer.totalSpent}</p>
+                            <p className="text-xs text-gray-500">Total Spent</p>
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-900">{customer.lastService}</p>
+                            <p className="text-xs text-gray-500">Last Service</p>
+                          </div>
                         </div>
+                        
                         <div className="flex space-x-2">
-                          <button className="text-red-600 hover:text-red-900 text-xs md:text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors">View</button>
-                          <button className="text-gray-600 hover:text-gray-900 text-xs md:text-sm px-2 py-1 rounded hover:bg-gray-50 transition-colors">Edit</button>
+                          <button 
+                            onClick={() => handleViewCustomerDetails(customer)}
+                            className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors duration-200"
+                          >
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            View Details
+                          </button>
+                          <button className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors duration-200">
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            Message
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -470,6 +1092,156 @@ const Admin = () => {
                 ))}
               </div>
             </div>
+
+            {/* Customer Details Modal */}
+            {showCustomerDetails && selectedCustomer && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                  <div className="sticky top-0 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200 px-6 py-4 rounded-t-xl">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xl font-bold text-gray-900">Customer Details</h3>
+                      <button
+                        onClick={() => setShowCustomerDetails(false)}
+                        className="p-2 hover:bg-gray-200 rounded-lg transition-all duration-200 hover:text-gray-700"
+                      >
+                        <svg className="w-5 h-5 text-gray-500 hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 space-y-6">
+                    {/* Customer Profile */}
+                    <div className="text-center bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-6 mb-4">
+                      <div className="w-20 h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white shadow">
+                        <span className="text-red-600 font-bold text-2xl">{selectedCustomer.name.charAt(0)}</span>
+                      </div>
+                      <h4 className="text-xl font-bold text-gray-900">{selectedCustomer.name}</h4>
+                      <p className="text-gray-600 mt-1">{selectedCustomer.email}</p>
+                    </div>
+
+                    {/* Contact Information */}
+                    <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                      <h4 className="text-lg font-bold text-gray-900 mb-4 pb-2 border-b border-gray-200">Contact Information</h4>
+                      
+                      {/* Contact Actions */}
+                      <div className="bg-white rounded-lg p-4 mb-4 border border-gray-200">
+                        <h5 className="text-sm font-medium text-gray-700 mb-3 text-center">Quick Contact</h5>
+                        <div className="flex justify-center space-x-4">
+                          <button 
+                            onClick={() => window.open(`tel:${selectedCustomer.phone}`)}
+                            className="flex flex-col items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-2xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                          >
+                            <svg className="w-6 h-6 text-white mb-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            <span className="text-xs font-semibold text-white">Call</span>
+                          </button>
+                          
+                          <button 
+                            onClick={() => window.open(`sms:${selectedCustomer.phone}`)}
+                            className="flex flex-col items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                          >
+                            <svg className="w-6 h-6 text-white mb-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            <span className="text-xs font-semibold text-white">SMS</span>
+                          </button>
+                          
+                          <button 
+                            onClick={() => window.open(`mailto:${selectedCustomer.email}`)}
+                            className="flex flex-col items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 rounded-2xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 group"
+                          >
+                            <svg className="w-6 h-6 text-white mb-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span className="text-xs font-semibold text-white">Email</span>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between bg-white rounded-lg border border-gray-200 px-3 py-2">
+                          <div className="flex items-center space-x-3">
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            <span className="text-gray-900 font-medium">{selectedCustomer.phone}</span>
+                          </div>
+                          <button 
+                            onClick={() => navigator.clipboard.writeText(selectedCustomer.phone)}
+                            className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        
+                        <div className="flex items-center justify-between bg-white rounded-lg border border-gray-200 px-3 py-2">
+                          <div className="flex items-center space-x-3 flex-1 min-w-0">
+                            <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <span className="text-gray-900 font-medium truncate">{selectedCustomer.email}</span>
+                          </div>
+                          <button 
+                            onClick={() => navigator.clipboard.writeText(selectedCustomer.email)}
+                            className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow flex-shrink-0 ml-2"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                        
+                        <div className="flex items-start justify-between bg-white rounded-lg border border-gray-200 px-3 py-2">
+                          <div className="flex items-start space-x-3 flex-1">
+                            <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span className="text-gray-900 font-medium">{selectedCustomer.address}</span>
+                          </div>
+                          <button 
+                            onClick={() => navigator.clipboard.writeText(selectedCustomer.address)}
+                            className="px-3 py-1 text-xs font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow flex-shrink-0 ml-2"
+                          >
+                            Copy
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <div className="bg-blue-50 rounded-lg p-4 text-center border border-blue-100">
+                        <p className="text-2xl font-bold text-blue-600">{selectedCustomer.bookings}</p>
+                        <p className="text-sm text-gray-600 mt-1">Total Bookings</p>
+                      </div>
+                      <div className="bg-green-50 rounded-lg p-4 text-center border border-green-100">
+                        <p className="text-2xl font-bold text-green-600">{selectedCustomer.totalSpent}</p>
+                        <p className="text-sm text-gray-600 mt-1">Total Spent</p>
+                      </div>
+                      <div className="bg-purple-50 rounded-lg p-4 text-center border border-purple-100">
+                        <p className="text-sm font-semibold text-purple-600">{selectedCustomer.lastService}</p>
+                        <p className="text-sm text-gray-600 mt-1">Last Service</p>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200">
+                      <button className="flex-1 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-3 rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
+                        Edit Customer
+                      </button>
+                      <button className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
+                        New Booking
+                      </button>
+                      <button className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-3 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg">
+                        View History
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )
       case 'services':
