@@ -71,6 +71,65 @@ const App = () => {
     }
   })
 
+  // Function to get current location using browser geolocation
+  const getCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser')
+      return
+    }
+
+    // Show loading state
+    const originalAddress = quoteFormData.propertyDetails.address
+    updateFormData('propertyDetails', 'address', 'Getting your location...')
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords
+        
+        try {
+          // Using OpenStreetMap Nominatim API to reverse geocode
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+          )
+          
+          if (!response.ok) {
+            throw new Error('Failed to fetch location data')
+          }
+          
+          const data = await response.json()
+          
+          // Extract address components
+          const address = data.address
+          let streetAddress = ''
+          
+          // Construct street address from available components
+          if (address.house_number) {
+            streetAddress += address.house_number + ' '
+          }
+          if (address.road) {
+            streetAddress += address.road
+          } else if (address.pedestrian) {
+            streetAddress += address.pedestrian
+          }
+          
+          // Update form fields
+          updateFormData('propertyDetails', 'address', streetAddress || '')
+          updateFormData('propertyDetails', 'suburb', address.city || address.town || address.village || '')
+          updateFormData('propertyDetails', 'postcode', address.postcode || '')
+        } catch (error) {
+          console.error('Error getting location:', error)
+          updateFormData('propertyDetails', 'address', originalAddress)
+          alert('Unable to retrieve your address. Please enter it manually.')
+        }
+      },
+      (error) => {
+        console.error('Geolocation error:', error)
+        updateFormData('propertyDetails', 'address', originalAddress)
+        alert('Unable to retrieve your location. Please enter your address manually.')
+      }
+    )
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollY(window.scrollY)
@@ -462,6 +521,20 @@ const App = () => {
       image: "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
       gradient: "from-red-500 to-red-600",
       features: ["Property protection", "Seamless drainage", "Curb appeal enhancement"]
+    },
+    {
+      title: "Lawn",
+      description: "Professional lawn care services to keep your outdoor spaces looking pristine and well-maintained.",
+      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
+      gradient: "from-red-500 to-red-600",
+      features: ["Lawn mowing", "Edging", "Professional equipment"]
+    },
+    {
+      title: "Yard Maintenance",
+      description: "Comprehensive yard maintenance services to keep your outdoor areas clean, organized, and beautiful.",
+      image: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=400&h=250&fit=crop&crop=center&auto=format&q=75",
+      gradient: "from-red-500 to-red-600",
+      features: ["Yard cleanup", "Weed removal", "Professional service"]
     }
   ]
 
@@ -932,7 +1005,7 @@ const App = () => {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 w-full">
+          <div className="grid grid-cols-2 lg:grid-cols-4 w-full">
             {services.map((service, index) => (
               <div
                 key={index}
@@ -2022,6 +2095,21 @@ const App = () => {
                                     placeholder="4350"
                                   />
                                 </div>
+                              </div>
+                              
+                              {/* GPS Location Button */}
+                              <div className="mt-2">
+                                <button
+                                  type="button"
+                                  onClick={getCurrentLocation}
+                                  className="flex items-center space-x-2 text-sm text-red-600 hover:text-red-700 font-medium"
+                                >
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                  </svg>
+                                  <span>Use current location</span>
+                                </button>
                               </div>
                             </div>
                                                     
